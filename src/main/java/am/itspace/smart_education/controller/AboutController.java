@@ -8,6 +8,6 @@ public class AboutController {
 
     @GetMapping("/about_us")
     public String aboutPage(){
-        return "about";
+        return "web/about";
     }
 }

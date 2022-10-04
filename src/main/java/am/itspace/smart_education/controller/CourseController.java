@@ -8,6 +8,6 @@ public class CourseController {
 
     @GetMapping("/course")
     public String coursePage(){
-        return "course";
+        return "web/course";
     }
 }

@@ -8,6 +8,6 @@ public class TeachersController {
 
     @GetMapping("/teachers")
     public String teachersPage(){
-        return "teachers";
+        return "web/teachers";
     }
 }
