@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -22,4 +23,9 @@ public class Lesson {
     private Duration duration;
     private double totalHours;
     private boolean isOnline;
+    @ManyToMany()
+    @JoinTable(name = "subscription",
+    joinColumns = @JoinColumn(name = "lesson_id"),
+    inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> userSet;
 }
