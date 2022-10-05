@@ -5,7 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
 import java.util.Set;
+
 
 @Data
 @NoArgsConstructor
@@ -28,4 +30,5 @@ public class Lesson {
     joinColumns = @JoinColumn(name = "lesson_id"),
     inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> userSet;
+
 }
