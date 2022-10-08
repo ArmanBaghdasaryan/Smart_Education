@@ -25,7 +25,7 @@ public class Lesson {
     private Duration duration;
     private double totalHours;
     private boolean isOnline;
-    @ManyToMany()
+    @ManyToMany
     @JoinTable(name = "subscription",
     joinColumns = @JoinColumn(name = "lesson_id"),
     inverseJoinColumns = @JoinColumn(name = "user_id"))

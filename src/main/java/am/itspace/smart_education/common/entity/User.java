@@ -28,7 +28,7 @@ public class User {
     private String phoneNumber;
    @Enumerated(EnumType.STRING)
     private Role role;
-    @ManyToMany()
+    @ManyToMany
     @JoinTable(name = "subscription",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "lesson_id"))
