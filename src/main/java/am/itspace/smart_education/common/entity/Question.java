@@ -10,15 +10,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "answers")
-public class Answers {
+@Table(name = "questions")
+public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String answerText;
-    @ManyToOne
-    private Questions questions;
+    private String description;
     @ManyToOne
     private User user;
-
 }
