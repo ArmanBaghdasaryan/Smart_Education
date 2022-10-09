@@ -1,7 +1,7 @@
 package am.itspace.smart_education.controller.admin;
 
 import am.itspace.smart_education.common.entity.Comment;
-import am.itspace.smart_education.common.services.CommentsService;
+import am.itspace.smart_education.common.service.CommentsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
