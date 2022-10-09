@@ -2,7 +2,7 @@ package am.itspace.smart_education.controller.admin;
 
 
 import am.itspace.smart_education.common.entity.Lesson;
-import am.itspace.smart_education.common.services.LessonService;
+import am.itspace.smart_education.common.service.LessonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,10 +19,6 @@ public class AdminLessonController {
 
     private final LessonService lessonService;
 
-    @GetMapping("/admin/lesson")
-    public String lessonHome() {
-        return "lesson";
-    }
 
     @GetMapping("/admin/lesson")
     public String lesson(ModelMap modelMap) {

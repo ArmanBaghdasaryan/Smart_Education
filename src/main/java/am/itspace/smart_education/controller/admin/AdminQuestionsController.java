@@ -1,7 +1,7 @@
 package am.itspace.smart_education.controller.admin;
 
 
-import am.itspace.smart_education.common.entity.Questions;
+import am.itspace.smart_education.common.entity.Question;
 import am.itspace.smart_education.common.services.QuestionsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -20,13 +20,8 @@ public class AdminQuestionsController {
     private final QuestionsService questionsService;
 
     @GetMapping("/admin/questions")
-    public String questionsHome() {
-        return "questions";
-    }
-
-    @GetMapping("/admin/questions")
     public String questions(ModelMap modelMap) {
-        List<Questions> allQuestions = questionsService.findAll();
+        List<Question> allQuestions = questionsService.findAll();
         modelMap.addAttribute("questions", allQuestions);
         return "questions";
     }
@@ -38,8 +33,8 @@ public class AdminQuestionsController {
 
 
     @PostMapping("/admin/questions/add")
-    public String addQuestions(@ModelAttribute Questions questions) {
-        questionsService.save(questions);
+    public String addQuestions(@ModelAttribute Question question) {
+        questionsService.save(question);
         return "redirect:/admin/questions";
     }
 
@@ -51,8 +46,8 @@ public class AdminQuestionsController {
     }
 
     @GetMapping("/admin/questions/update")
-    public String update(@ModelAttribute Questions questions) {
-        questionsService.save(questions);
+    public String update(@ModelAttribute Question question) {
+        questionsService.save(question);
         return "redirect:/admin/questions";
     }
 

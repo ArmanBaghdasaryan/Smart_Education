@@ -1,7 +1,7 @@
 package am.itspace.smart_education.controller.admin;
 
-import am.itspace.smart_education.common.entity.Answers;
-import am.itspace.smart_education.common.services.AnswerService;
+import am.itspace.smart_education.common.entity.Answer;
+import am.itspace.smart_education.common.service.AnswerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,15 +18,9 @@ public class AdminAnswersController {
 
     private final AnswerService answerService;
 
-
-    @GetMapping("/admin/answers")
-    public String answersHome() {
-        return "answers";
-    }
-
     @GetMapping("/admin/answers")
     public String answers(ModelMap modelMap) {
-        List<Answers> allAnswers = answerService.findAll();
+        List<Answer> allAnswers = answerService.findAll();
         modelMap.addAttribute("answers", allAnswers);
         return "answers";
     }
@@ -38,8 +32,8 @@ public class AdminAnswersController {
 
 
     @PostMapping("/admin/answers/add")
-    public String addAnswers(@ModelAttribute Answers answers) {
-        answerService.save(answers);
+    public String addAnswers(@ModelAttribute Answer answer) {
+        answerService.save(answer);
         return "redirect:/admin/answers";
     }
 
@@ -51,8 +45,8 @@ public class AdminAnswersController {
     }
 
     @GetMapping("/admin/answers/update")
-    public String update(@ModelAttribute Answers answers) {
-        answerService.save(answers);
+    public String update(@ModelAttribute Answer answer) {
+        answerService.save(answer);
         return "redirect:/admin/answers";
     }
 

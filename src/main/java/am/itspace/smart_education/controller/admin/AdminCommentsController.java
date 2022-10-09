@@ -1,6 +1,6 @@
 package am.itspace.smart_education.controller.admin;
 
-import am.itspace.smart_education.common.entity.Comments;
+import am.itspace.smart_education.common.entity.Comment;
 import am.itspace.smart_education.common.services.CommentsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -19,14 +19,10 @@ public class AdminCommentsController {
     private final CommentsService commentsService;
 
 
-    @GetMapping("/admin/comments")
-    public String commentsHome() {
-        return "comments";
-    }
 
     @GetMapping("/admin/comments")
-    public String Comments(ModelMap modelMap) {
-        List<Comments> allComments = commentsService.findAll();
+    public String comments(ModelMap modelMap) {
+        List<Comment> allComments = commentsService.findAll();
         modelMap.addAttribute("comments", allComments);
         return "comments";
     }
@@ -38,8 +34,8 @@ public class AdminCommentsController {
 
 
     @PostMapping("/admin/comments/add")
-    public String addComments(@ModelAttribute Comments comments) {
-        commentsService.save(comments);
+    public String addComments(@ModelAttribute Comment comment) {
+        commentsService.save(comment);
         return "redirect:/admin/comments";
     }
 
@@ -51,8 +47,8 @@ public class AdminCommentsController {
     }
 
     @GetMapping("/admin/comments/update")
-    public String update(@ModelAttribute Comments comments) {
-        commentsService.save(comments);
+    public String update(@ModelAttribute Comment comment) {
+        commentsService.save(comment);
         return "redirect:/admin/comments";
     }
 

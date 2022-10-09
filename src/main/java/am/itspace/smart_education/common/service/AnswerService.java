@@ -1,7 +1,8 @@
-package am.itspace.smart_education.common.services;
+package am.itspace.smart_education.common.service;
 
-import am.itspace.smart_education.common.entity.Answers;
-import am.itspace.smart_education.common.repositories.AnswersRepository;
+
+import am.itspace.smart_education.common.entity.Answer;
+import am.itspace.smart_education.common.repository.AnswerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,18 +12,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AnswerService {
 
-    private final AnswersRepository answersRepository;
+    private final AnswerRepository answerRepository;
 
-    public List<Answers> findAll() {
-        return answersRepository.findAll();
+    public List<Answer> findAll() {
+        return answerRepository.findAll();
     }
 
-    public void save(Answers answers) {
-        answersRepository.save(answers);
+    public void save(Answer answers) {
+        answerRepository.save(answers);
     }
 
     public void deleteById(int id) {
-        answersRepository.deleteById(id);
+        answerRepository.deleteById(id);
     }
 
 }

@@ -20,15 +20,10 @@ public class AdminUserController {
     private final UserService userService;
 
     @GetMapping("/admin/user")
-    public String userHome() {
-        return "user";
-    }
-
-    @GetMapping("/admin/user")
     public String user(ModelMap modelMap) {
         List<User> allUsers = userService.findAll();
         modelMap.addAttribute("users", allUsers);
-        return "users";
+        return "admin/admin_user";
     }
 
     @GetMapping("/admin/user/add")

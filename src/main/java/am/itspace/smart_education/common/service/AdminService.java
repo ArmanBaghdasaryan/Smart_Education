@@ -2,7 +2,7 @@ package am.itspace.smart_education.common.services;
 
 
 import am.itspace.smart_education.common.entity.User;
-import am.itspace.smart_education.common.repositories.UserRepository;
+import am.itspace.smart_education.common.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ public class AdminService {
 
     private final UserRepository userRepository;
 
-    public List<User> findAll(){
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
