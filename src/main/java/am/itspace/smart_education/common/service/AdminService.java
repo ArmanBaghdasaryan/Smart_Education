@@ -1,7 +1,8 @@
-package am.itspace.smart_education.common.service;
+package am.itspace.smart_education.common.services;
+
 
 import am.itspace.smart_education.common.entity.User;
-import am.itspace.smart_education.common.repository.UserRepository;
+import am.itspace.smart_education.common.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,11 +10,11 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class AdminService {
 
     private final UserRepository userRepository;
 
-    public List<User> findAll() {
+    public List<User> findAll(){
         return userRepository.findAll();
     }
 
@@ -24,5 +25,4 @@ public class UserService {
     public void deleteById(int id) {
         userRepository.deleteById(id);
     }
-
 }
