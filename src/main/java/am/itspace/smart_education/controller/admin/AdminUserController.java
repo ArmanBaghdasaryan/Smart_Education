@@ -2,7 +2,7 @@ package am.itspace.smart_education.controller.admin;
 
 
 import am.itspace.smart_education.common.entity.User;
-import am.itspace.smart_education.common.services.UserService;
+import am.itspace.smart_education.common.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

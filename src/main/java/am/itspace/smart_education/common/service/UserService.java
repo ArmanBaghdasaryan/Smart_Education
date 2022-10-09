@@ -1,7 +1,7 @@
 package am.itspace.smart_education.common.service;
 
 import am.itspace.smart_education.common.entity.User;
-import am.itspace.smart_education.common.repositories.UserRepository;
+import am.itspace.smart_education.common.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
