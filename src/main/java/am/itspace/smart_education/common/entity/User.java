@@ -3,9 +3,10 @@ package am.itspace.smart_education.common.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.*;
+import java.util.Set;
+
 
 @Data
 @NoArgsConstructor
@@ -25,4 +26,9 @@ public class User {
     private String phoneNumber;
    @Enumerated(EnumType.STRING)
     private Role role;
+    @ManyToMany
+    @JoinTable(name = "subscription",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "lesson_id"))
+    private Set<Lesson> lessonSet;
 }
