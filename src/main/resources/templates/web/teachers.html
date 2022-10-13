@@ -59,16 +59,17 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div class="tab-pane active" id="Login">
-                        <form role="form" class="form-horizontal">
+                        <form action="/loginPage" role="form" class="form-horizontal" >
+
                             <div class="form-group">
                                 <div class="col-sm-12">
-                                    <input class="form-control" id="email1" placeholder="Name" type="text">
+                                    <input class="form-control" name="email" placeholder="email" type="email">
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <div class="col-sm-12">
-                                    <input class="form-control" id="exampleInputPassword1" placeholder="Email"
-                                           type="email">
+                                    <input class="form-control" name="password" placeholder="password" type="password">
                                 </div>
                             </div>
                             <div class="row">
