@@ -32,7 +32,7 @@ xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
             <column name="phone_number" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_role" type="ENUM('USER','ADMIN','TEACHER')" defaultValue="USER">
+            <column name="role" type="ENUM('USER','ADMIN','TEACHER')" defaultValue="USER">
                 <constraints nullable="false"/>
             </column>
         </createTable>
