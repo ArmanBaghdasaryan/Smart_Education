@@ -67,9 +67,17 @@ xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
             <column name="answer_text" type="text">
                 <constraints nullable="false"/>
             </column>
-            <column name="fk_question_id" type="BIGINT"/>
-            <column name="fk_user_id" type="BIGINT"/>
+            <column name="question_id" type="BIGINT"/>
+            <column name="user_id" type="BIGINT"/>
+
+
         </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="answers"
+                                 constraintName="fk_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
 
         <createTable tableName="comments">
             <column name="id" type="BIGINT" autoIncrement="true">
