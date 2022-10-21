@@ -57,8 +57,13 @@ xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="description" type="text"/>
-            <column name="fk_user_id" type="BIGINT"/>
+            <column name="user_id" type="BIGINT"/>
         </createTable>
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="questions"
+                                 constraintName="fk_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="questions"/>
 
         <createTable tableName="answers">
             <column name="id" type="BIGINT" autoIncrement="true">
@@ -79,13 +84,24 @@ xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                                  referencedColumnNames="id"
                                  referencedTableName="user"/>
 
+        <addForeignKeyConstraint baseColumnNames="questions_id"
+                                 baseTableName="answers"
+                                 constraintName="fk_questions_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
+
         <createTable tableName="comments">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="description" type="text"/>
-            <column name="fk_user_id" type="BIGINT"/>
+            <column name="user_id" type="BIGINT"/>
         </createTable>
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="comments"
+                                 constraintName="fk_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="comments"/>
 
         <createTable tableName="subscription">
             <column name="user_id" type="BIGINT">
