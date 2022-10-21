@@ -101,7 +101,7 @@ xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                                  baseTableName="comments"
                                  constraintName="fk_user_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="comments"/>
+                                 referencedTableName="user"/>
 
         <createTable tableName="subscription">
             <column name="user_id" type="BIGINT">
