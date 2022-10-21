@@ -1,11 +1,11 @@
-<databaseChangeLog>
-    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
-    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
-    http://www.liquibase.org/xml/ns/dbchangelog
-    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+<databaseChangeLog
+xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
 
     <changeSet author="amuradyan" id="initdb">
@@ -32,7 +32,7 @@
             <column name="phone_number" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_role" type="ENUM('USER','ADMIN','TEACHER')" defaultValue="USER">
+            <column name="role" type="ENUM('USER','ADMIN','TEACHER')" defaultValue="USER">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -57,8 +57,13 @@
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="description" type="text"/>
-            <column name="fk_user_id" type="BIGINT"/>
+            <column name="user_id" type="BIGINT"/>
         </createTable>
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="questions"
+                                 constraintName="fk_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="questions"/>
 
         <createTable tableName="answers">
             <column name="id" type="BIGINT" autoIncrement="true">
@@ -67,17 +72,36 @@
             <column name="answer_text" type="text">
                 <constraints nullable="false"/>
             </column>
-            <column name="fk_question_id" type="BIGINT"/>
-            <column name="fk_user_id" type="BIGINT"/>
+            <column name="question_id" type="BIGINT"/>
+            <column name="user_id" type="BIGINT"/>
+
+
         </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="answers"
+                                 constraintName="fk_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
+
+        <addForeignKeyConstraint baseColumnNames="questions_id"
+                                 baseTableName="answers"
+                                 constraintName="fk_questions_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
 
         <createTable tableName="comments">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="description" type="text"/>
-            <column name="fk_user_id" type="BIGINT"/>
+            <column name="user_id" type="BIGINT"/>
         </createTable>
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="comments"
+                                 constraintName="fk_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
 
         <createTable tableName="subscription">
             <column name="user_id" type="BIGINT">
