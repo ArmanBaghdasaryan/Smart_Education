@@ -1,8 +1,8 @@
 <databaseChangeLog
-xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
    http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
@@ -41,7 +41,7 @@ xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
-            <column  name="title" type="ENUM('JAVA','JS','C++','PHP','PYTHON')">
+            <column name="title" type="ENUM('JAVA','JS','C++','PHP','PYTHON')">
                 <constraints nullable="false"/>
             </column>
             <column name="price" type="double"/>
@@ -61,7 +61,7 @@ xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         </createTable>
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="questions"
-                                 constraintName="fk_user_id"
+                                 constraintName="questions_fk_user_id"
                                  referencedColumnNames="id"
                                  referencedTableName="questions"/>
 
@@ -77,18 +77,18 @@ xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 
 
         </createTable>
+        <addForeignKeyConstraint baseColumnNames="question_id"
+                                 baseTableName="answers"
+                                 constraintName="answers_fk_question_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
 
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="answers"
-                                 constraintName="fk_user_id"
+                                 constraintName="answers_fk_user_id"
                                  referencedColumnNames="id"
                                  referencedTableName="user"/>
 
-        <addForeignKeyConstraint baseColumnNames="questions_id"
-                                 baseTableName="answers"
-                                 constraintName="fk_questions_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="user"/>
 
         <createTable tableName="comments">
             <column name="id" type="BIGINT" autoIncrement="true">
@@ -99,7 +99,7 @@ xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         </createTable>
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="comments"
-                                 constraintName="fk_user_id"
+                                 constraintName="comments_fk_user_id"
                                  referencedColumnNames="id"
                                  referencedTableName="user"/>
 
