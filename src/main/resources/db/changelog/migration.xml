@@ -1,14 +1,14 @@
 <databaseChangeLog
-xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
    http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
 
-    <changeSet author="amuradyan" id="initdb">
+  <changeSet author="aMuradyan" id="initDb">
         <createTable tableName="user">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true"/>
@@ -41,7 +41,7 @@ xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
-            <column  name="title" type="ENUM('JAVA','JS','C++','PHP','PYTHON')">
+            <column name="title" type="ENUM('JAVA','JS','C++','PHP','PYTHON')">
                 <constraints nullable="false"/>
             </column>
             <column name="price" type="double"/>
@@ -63,7 +63,7 @@ xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                                  baseTableName="questions"
                                  constraintName="fk_user_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="questions"/>
+                                 referencedTableName="user"/>
 
         <createTable tableName="answers">
             <column name="id" type="BIGINT" autoIncrement="true">
@@ -78,17 +78,18 @@ xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 
         </createTable>
 
-        <addForeignKeyConstraint baseColumnNames="user_id"
-                                 baseTableName="answers"
-                                 constraintName="fk_user_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="user"/>
-
         <addForeignKeyConstraint baseColumnNames="questions_id"
                                  baseTableName="answers"
                                  constraintName="fk_questions_id"
                                  referencedColumnNames="id"
                                  referencedTableName="user"/>
+
+<!--        <addForeignKeyConstraint baseColumnNames="user_id"-->
+<!--                                 baseTableName="answers"-->
+<!--                                 constraintName="fk_user_id"-->
+<!--                                 referencedColumnNames="id"-->
+<!--                                 referencedTableName="user"/>-->
+
 
         <createTable tableName="comments">
             <column name="id" type="BIGINT" autoIncrement="true">
@@ -97,12 +98,10 @@ xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
             <column name="description" type="text"/>
             <column name="user_id" type="BIGINT"/>
         </createTable>
-        <addForeignKeyConstraint baseColumnNames="user_id"
-                                 baseTableName="comments"
-                                 constraintName="fk_user_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="user"/>
 
+        <addForeignKeyConstraint baseTableName="comments" baseColumnNames="user_id" constraintName="fk_user_id"
+                                 referencedTableName="user"
+                                 referencedColumnNames="id"/>
         <createTable tableName="subscription">
             <column name="user_id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -112,5 +111,6 @@ xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
             </column>
         </createTable>
     </changeSet>
+
 
 </databaseChangeLog>
