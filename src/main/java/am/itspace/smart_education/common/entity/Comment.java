@@ -18,5 +18,4 @@ public class Comment {
     private String description;
     @ManyToOne
     private User user;
-
 }
