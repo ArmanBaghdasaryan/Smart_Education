@@ -13,7 +13,6 @@ public class SmartEducationApplication {
         SpringApplication.run(SmartEducationApplication.class, args);
     }
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

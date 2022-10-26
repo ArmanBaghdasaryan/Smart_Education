@@ -1,25 +1,24 @@
-package am.itspace.smart_education.web.controller;
+package am.itspace.smart_education.controller.web;
 
 import am.itspace.smart_education.common.entity.Role;
 import am.itspace.smart_education.common.entity.User;
 import am.itspace.smart_education.security.CurrentUser;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MainController {
-    @GetMapping("index")
+
+    @GetMapping("/")
     public String mainPage() {
-        return "index";
+        return "web/index";
     }
 
 
     @GetMapping("/accessDenied")
     public String accessDenied() {
-        return "accessDenied";
+        return "web/accessDenied";
     }
 
 
@@ -28,19 +27,16 @@ public class MainController {
         if (currentUser != null) {
             User user = currentUser.getUser();
             if (user.getRole() == Role.ADMIN) {
-                return "redirect:/admin";
+                return "redirect:/";
             } else if (user.getRole() == Role.USER) {
-                return "redirect:/user";
+                return "redirect:/";
+            } else if (user.getRole() == Role.TEACHER) {
+                return "redirect:/";
             }
         }
         return "redirect:/";
     }
 
-
-    @GetMapping("/loginPage")
-    public String loginPage() {
-        return "index";
-    }
 }
 
 
