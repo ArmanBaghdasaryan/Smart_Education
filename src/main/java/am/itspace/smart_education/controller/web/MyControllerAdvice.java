@@ -1,4 +1,4 @@
-package am.itspace.smart_education.web.controller;
+package am.itspace.smart_education.controller.web;
 
 
 import am.itspace.smart_education.common.entity.User;

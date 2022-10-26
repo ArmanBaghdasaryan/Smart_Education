@@ -1,9 +1,9 @@
-package am.itspace.smart_education.web.controller;
+package am.itspace.smart_education.controller.web;
 
 import am.itspace.smart_education.common.entity.Role;
 import am.itspace.smart_education.common.entity.User;
 import am.itspace.smart_education.common.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,17 +11,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/user/register")
     public String addUser() {
-        return "user";
+        return "web/index";
     }
 
     @PostMapping("/user/register")

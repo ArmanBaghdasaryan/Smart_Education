@@ -1,7 +1,7 @@
 package am.itspace.smart_education.config;
 
 import am.itspace.smart_education.common.entity.Role;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,13 +11,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserDetailsService userDetailService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserDetailsService userDetailService;
+    private final PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -25,28 +23,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .formLogin()
-                .loginPage("/loginPage")
-                .usernameParameter("username")
+                .usernameParameter("email")
                 .passwordParameter("password")
                 .loginProcessingUrl("/login")
-                .failureUrl("/loginPage?error=true")
+                .loginPage("/")
+                .failureUrl("/?error=true")
                 .defaultSuccessUrl("/loginSuccess")
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
                 .antMatchers(HttpMethod.GET,"/user/register").permitAll()
                 .antMatchers(HttpMethod.POST,"/user/register").permitAll()
-                .antMatchers(HttpMethod.GET,"#").hasAuthority(Role.ADMIN.name())
-                .antMatchers(HttpMethod.POST,"#").hasAuthority(Role.USER.name())
-                .antMatchers("#").hasAuthority(Role.USER.name())
-                .antMatchers("#").hasAuthority(Role.ADMIN.name())
+                .antMatchers("/teachers").hasAnyAuthority(Role.ADMIN.name(),Role.USER.name())
                 .anyRequest()
                 .permitAll()
                 .and()
-                .exceptionHandling().accessDeniedPage("/accessDenied");
+                .exceptionHandling().accessDeniedPage("/loginPage");
 
     }
 
