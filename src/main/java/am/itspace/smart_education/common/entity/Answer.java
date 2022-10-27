@@ -17,7 +17,7 @@ public class Answer {
     private int id;
     private String answerText;
     @ManyToOne
-    private Question questions;
+    private Question question;
     @ManyToOne
     private User user;
 
