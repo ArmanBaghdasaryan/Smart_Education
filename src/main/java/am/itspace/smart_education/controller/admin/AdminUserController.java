@@ -70,31 +70,10 @@ public class AdminUserController {
     }
 
 
-//    @GetMapping("/edit/{id}")
-//    public String editEmployee(@PathVariable("id") int id,
-//                               ModelMap modelMap) {
-//        Optional<Employee> employeeOptional = employeeService.findEmployeesById(id);
-//        if (employeeOptional.isEmpty()) {
-//            return "redirect:/admin/home";
-//        }
-//        modelMap.addAttribute("employee", employeeOptional.get());
-//        List<Company> companies = companyService.findAllCompanies();
-//        modelMap.addAttribute("companies", companies);
-//        return "editEmployee";
-//
-//    }
-//
-//    @PostMapping("/edit")
-//    public String editEmployee(@ModelAttribute Employee employee,
-//                               @RequestParam("profPic") MultipartFile file) throws IOException {
-//        employeeService.EmployeesEdit(employee, file);
-//        return "redirect:/employee";
-//    }
-
     @PostMapping("/update")
     public String update(@ModelAttribute User user,
-                         @RequestParam("profPic")MultipartFile file) throws IOException {
-        userService.updateUser(user,file);
+                         @RequestParam("profPic") MultipartFile file) throws IOException {
+        userService.updateUser(user, file);
         return "redirect:/admin/user";
     }
 
