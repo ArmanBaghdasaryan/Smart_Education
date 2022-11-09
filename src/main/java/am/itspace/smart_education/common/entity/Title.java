@@ -8,9 +8,13 @@ public enum Title {
     PHP("Php"),
     PYTHON("Python");
 
-    private String displayName;
+    private final String displayName;
 
     Title(String displayName) {
         this.displayName = displayName;
+    }
+
+    public String getDisplayName() {
+        return displayName;
     }
 }

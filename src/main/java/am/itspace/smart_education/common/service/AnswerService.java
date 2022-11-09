@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,4 +27,11 @@ public class AnswerService {
         answerRepository.deleteById(id);
     }
 
+    public Optional<Answer> findById(int id) {
+        return answerRepository.findById(id);
+    }
+
+    public void updateAnswer(Answer answer) {
+        answerRepository.save(answer);
+    }
 }

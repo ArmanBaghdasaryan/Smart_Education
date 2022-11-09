@@ -1,6 +1,7 @@
 package am.itspace.smart_education.controller.admin;
 
 import am.itspace.smart_education.common.entity.Comment;
+import am.itspace.smart_education.common.entity.Lesson;
 import am.itspace.smart_education.common.service.CommentsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -8,45 +9,57 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/comments")
 @RequiredArgsConstructor
 public class AdminCommentsController {
 
     private final CommentsService commentsService;
 
 
-
-    @GetMapping("/comments")
+    @GetMapping
     public String comments(ModelMap modelMap) {
         List<Comment> allComments = commentsService.findAll();
         modelMap.addAttribute("comments", allComments);
-        return "comments";
+        return "admin/admin_comments";
     }
 
-    @GetMapping("/comments/add")
+    @GetMapping("/add")
     public String addComments() {
-        return "addComments";
+        return "admin/addComment";
     }
 
 
-    @PostMapping("/comments/add")
+    @PostMapping("/add")
     public String addComments(@ModelAttribute Comment comment) {
         commentsService.save(comment);
         return "redirect:/admin/comments";
     }
 
 
-    @GetMapping("/comments/delete")
-    public String deleteComments(@RequestParam("id") int id) {
+    @GetMapping("/delete/{id}")
+    public String deleteComments(@PathVariable("id") int id) {
         commentsService.deleteById(id);
-        return "redirect:/admin/user";
+        return "redirect:/admin/comments";
     }
 
-    @GetMapping("/comments/update")
-    public String update(@ModelAttribute Comment comment) {
-        commentsService.save(comment);
+    @GetMapping("/update/{id}")
+    public String updateComments(ModelMap modelMap,
+                         @PathVariable("id") int id) {
+        Optional<Comment> byId = commentsService.findById(id);
+        if (byId.isEmpty()) {
+            return "redirect:/admin/comment";
+        }
+        modelMap.addAttribute("comments", byId.get());
+        return "admin/editComment";
+    }
+
+
+    @PostMapping("/update")
+    public String updateComments(@ModelAttribute Comment comment) {
+        commentsService.updateComment(comment);
         return "redirect:/admin/comments";
     }
 

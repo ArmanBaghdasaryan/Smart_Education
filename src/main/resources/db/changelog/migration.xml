@@ -41,11 +41,11 @@
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="title" type="ENUM('JAVA','JS','C++','PHP','PYTHON')">
+            <column name="title" type="ENUM('JAVA','JS','C_PLUS','C','PHP','PYTHON')">
                 <constraints nullable="false"/>
             </column>
             <column name="price" type="double"/>
-            <column name="duration" type="ENUM('3_MONTHS','7_MONTHS')">
+            <column name="duration" type="ENUM('MONTHS_3','MONTHS_7')">
                 <constraints nullable="false"/>
             </column>
             <column name="total_hours" type="double"/>

@@ -9,41 +9,54 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/lesson")
 @RequiredArgsConstructor
 public class AdminLessonController {
     private final LessonService lessonService;
-    @GetMapping("/lesson")
+    @GetMapping
     public String lesson(ModelMap modelMap) {
         List<Lesson> allLessons = lessonService.findAll();
         modelMap.addAttribute("lessons", allLessons);
-        return "lessons";
+        return "admin/admin_lesson";
     }
 
-    @GetMapping("/lesson/add")
+    @GetMapping("/add")
     public String addLesson() {
-        return "addLesson";
+        return "admin/addLesson";
     }
 
 
-    @PostMapping("/lesson/add")
+    @PostMapping("/add")
     public String addLesson(@ModelAttribute Lesson lesson) {
         lessonService.save(lesson);
         return "redirect:/admin/lesson";
     }
 
 
-    @GetMapping("/lesson/delete")
-    public String deleteLesson(@RequestParam("id") int id) {
+    @GetMapping("/delete/{id}")
+    public String deleteLesson(@PathVariable("id") int id) {
         lessonService.deleteById(id);
         return "redirect:/admin/lesson";
     }
 
-    @GetMapping("/lesson/update")
+    @GetMapping("/update/{id}")
+    public String update(ModelMap modelMap,
+                         @PathVariable("id") int id) {
+        Optional<Lesson> byId = lessonService.findById(id);
+        if (byId.isEmpty()) {
+            return "redirect:/admin/lesson";
+        }
+        modelMap.addAttribute("lessons", byId.get());
+        return "admin/editLesson";
+    }
+
+
+    @PostMapping("/update")
     public String update(@ModelAttribute Lesson lesson) {
-        lessonService.save(lesson);
+        lessonService.updateLesson(lesson);
         return "redirect:/admin/lesson";
     }
 
