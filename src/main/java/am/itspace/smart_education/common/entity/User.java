@@ -30,5 +30,5 @@ public class User {
     @JoinTable(name = "subscription",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "lesson_id"))
-    private Set<Lesson> lessonSet;
+    private Set<Lesson> lessons;
 }

@@ -38,7 +38,9 @@ public class AdminUserController {
     public String addUser(@ModelAttribute User user,
                           @RequestParam("profPic") MultipartFile file,
                           ModelMap modelMap) throws IOException {
-        if (checkUserEmailAndUserImage(user, file, modelMap)) return "admin/addUser";
+        if (checkUserEmailAndUserImage(user, file, modelMap)) {
+            return "admin/addUser";
+        }
         userService.save(user, file);
         return "redirect:/admin/user";
     }

@@ -1,5 +1,6 @@
 package am.itspace.smart_education.controller.web;
 
+import am.itspace.smart_education.common.entity.Role;
 import am.itspace.smart_education.common.entity.User;
 import am.itspace.smart_education.common.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public class TeachersController {
 
     @GetMapping("/teachers")
     public String bookSinglePage(ModelMap modelMap) {
-        List<User> allTeacher = userService.findByRoleTeacher();
+        List<User> allTeacher = userService.findByRole(Role.TEACHER);
         if (allTeacher.isEmpty()) {
             return "redirect:/";
         }

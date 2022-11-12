@@ -13,7 +13,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,12 +29,13 @@ public class UserService {
     }
 
     public void save(User user, MultipartFile file) throws IOException {
-        checkedImage(user, file);
+        if (!file.isEmpty() && file.getSize() > 0) {
+            checkedImage(user, file);
+        }
         if (user.getRole() == null) {
             user.setRole(Role.ADMIN);
         }
         userRepository.save(user);
-
     }
 
     public void deleteById(int id) {
@@ -48,7 +48,12 @@ public class UserService {
     }
 
     public void updateUser(User user, MultipartFile file) throws IOException {
-        checkedImage(user, file);
+        if (!file.isEmpty() && file.getSize() > 0) {
+            checkedImage(user, file);
+        } else {
+            Optional<User> byId = findById(user.getId());
+            byId.ifPresent((userFromDb) -> user.setPicture(userFromDb.getPicture()));
+        }
         userRepository.save(user);
     }
 
@@ -62,17 +67,14 @@ public class UserService {
     }
 
     private void checkedImage(User user, MultipartFile file) throws IOException {
-        if (!file.isEmpty() && file.getSize() > 0) {
-            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-            File newFile = new File(folderPath + File.separator + fileName);
-            file.transferTo(newFile);
-            user.setPicture(fileName);
-        }
+        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        File newFile = new File(folderPath + File.separator + fileName);
+        file.transferTo(newFile);
+        user.setPicture(fileName);
+
     }
 
-
-
-        public List<User> findByRoleTeacher() {
-            return userRepository.findAllByRole(Role.TEACHER);
-        }
+    public List<User> findByRole(Role role) {
+        return userRepository.findAllByRole(role);
+    }
 }
