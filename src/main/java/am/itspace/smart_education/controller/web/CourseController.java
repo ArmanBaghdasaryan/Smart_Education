@@ -1,9 +1,7 @@
 package am.itspace.smart_education.controller.web;
 
 import am.itspace.smart_education.common.entity.Lesson;
-import am.itspace.smart_education.common.entity.Role;
-import am.itspace.smart_education.common.entity.User;
-import am.itspace.smart_education.common.service.LessonService;
+import am.itspace.smart_education.common.service.serviceImpl.LessonServiceImpl;
 import am.itspace.smart_education.common.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -19,11 +17,11 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class CourseController {
-private final LessonService lessonService;
+private final LessonServiceImpl lessonServiceImpl;
 private final UserService userService;
     @GetMapping("/course")
     public String bookSinglePage(ModelMap modelMap) {
-        List<Lesson> allLesson = lessonService.findAll();
+        List<Lesson> allLesson = lessonServiceImpl.findAll();
         if (allLesson.isEmpty()) {
             return "redirect:/";
         }
@@ -33,6 +31,6 @@ private final UserService userService;
     }
     @GetMapping(value = "/getPic", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getImage(@RequestParam("fileName") String fileName) throws IOException {
-        return lessonService.getLessonImage(fileName);
+        return lessonServiceImpl.getLessonImage(fileName);
     }
 }
