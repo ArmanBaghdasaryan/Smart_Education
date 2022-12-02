@@ -1,17 +1,15 @@
 package am.itspace.smart_education.common.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-
 import java.util.Set;
 
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "lesson")
 public class Lesson {
@@ -27,8 +25,8 @@ public class Lesson {
     private boolean isOnline;
     @ManyToMany
     @JoinTable(name = "subscription",
-    joinColumns = @JoinColumn(name = "lesson_id"),
-    inverseJoinColumns = @JoinColumn(name = "user_id"))
+            joinColumns = @JoinColumn(name = "lesson_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> userSet;
 
 }

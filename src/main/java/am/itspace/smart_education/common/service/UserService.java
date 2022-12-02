@@ -2,79 +2,36 @@ package am.itspace.smart_education.common.service;
 
 import am.itspace.smart_education.common.entity.Role;
 import am.itspace.smart_education.common.entity.User;
-import am.itspace.smart_education.common.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-@RequiredArgsConstructor
-public class UserService {
+public interface UserService {
 
-    private final UserRepository userRepository;
-    @Value("${smart.education.images.folder}")
-    private String folderPath;
+    List<User> findAll();
 
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
+    void save(User user, MultipartFile file) throws IOException;
 
-    public void save(User user, MultipartFile file) throws IOException {
-        if (!file.isEmpty() && file.getSize() > 0) {
-            checkedImage(user, file);
-        }
-        if (user.getRole() == null) {
-            user.setRole(Role.ADMIN);
-        }
-        userRepository.save(user);
-    }
+    void deleteById(int id);
 
-    public void deleteById(int id) {
-        userRepository.deleteById(id);
-    }
+    User findById(int id);
 
-    public Optional<User> findById(int id) {
-        return userRepository.findById(id);
+    void updateUser(User user, MultipartFile file) throws IOException;
 
-    }
+    byte[] getUserImage(String fileName) throws IOException;
 
-    public void updateUser(User user, MultipartFile file) throws IOException {
-        if (!file.isEmpty() && file.getSize() > 0) {
-            checkedImage(user, file);
-        } else {
-            Optional<User> byId = findById(user.getId());
-            byId.ifPresent((userFromDb) -> user.setPicture(userFromDb.getPicture()));
-        }
-        userRepository.save(user);
-    }
+    Optional<User> findByEmail(String email);
 
-    public byte[] getUserImage(String fileName) throws IOException {
-        InputStream inputStream = new FileInputStream(folderPath + File.separator + fileName);
-        return IOUtils.toByteArray(inputStream);
-    }
+    void checkedImage(User user, MultipartFile file) throws IOException;
 
-    public Optional<User> findByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
+    List<User> findByRole(Role role);
 
-    private void checkedImage(User user, MultipartFile file) throws IOException {
-        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-        File newFile = new File(folderPath + File.separator + fileName);
-        file.transferTo(newFile);
-        user.setPicture(fileName);
-
-    }
-
-    public List<User> findByRole(Role role) {
-        return userRepository.findAllByRole(role);
-    }
+    boolean checkUserEmailAndUserImage(@ModelAttribute User user,
+                                       @RequestParam("profPic") MultipartFile file,
+                                       ModelMap modelMap);
 }

@@ -1,18 +1,18 @@
 package am.itspace.smart_education.common.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "user")
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class User {
     private String bio;
     private String picture;
     private String phoneNumber;
-   @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private Role role;
     @ManyToMany
     @JoinTable(name = "subscription",

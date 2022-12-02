@@ -297,7 +297,7 @@ var Dropzone = function (_Emitter) {
          * The base that is used to calculate the filesize. You can change this to
          * 1024 if you would rather display kibibytes, mebibytes, etc...
          * 1024 is technically incorrect, because `1024 bytes` are `1 kibibyte` not `1 kilobyte`.
-         * You can change this to `1024` if you don't care about validity.
+         * You can change this to `1024` if you don't care about.html validity.
          */
         filesizeBase: 1000,
 
@@ -2585,7 +2585,7 @@ var Dropzone = function (_Emitter) {
       }
     }
 
-    // Invoked when there is new progress information about given files.
+    // Invoked when there is new progress information about.html given files.
     // If e is not provided, it is assumed that the upload is finished.
 
   }, {

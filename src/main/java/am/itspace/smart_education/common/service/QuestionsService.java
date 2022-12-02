@@ -1,36 +1,21 @@
 package am.itspace.smart_education.common.service;
 
 import am.itspace.smart_education.common.entity.Question;
-import am.itspace.smart_education.common.repository.QuestionRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
-public class QuestionsService {
+public interface QuestionsService  {
 
-    private final QuestionRepository questionRepository;
+    void deleteById(int id);
 
-    public void deleteById(int id) {
-        questionRepository.deleteById(id);
-    }
+    void save(Question question);
 
-    public void save(Question question) {
-        questionRepository.save(question);
-    }
+    List<Question> findAll();
 
-    public List<Question> findAll() {
-        return questionRepository.findAll();
-    }
+    Optional<Question> findById(int id);
 
-    public Optional<Question> findById(int id) {
-        return questionRepository.findById(id);
-    }
-
-    public void updateQuestion(Question question) {
-        questionRepository.save(question);
-    }
+    void updateQuestion(Question question);
 }

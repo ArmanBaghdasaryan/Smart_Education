@@ -1,7 +1,6 @@
 package am.itspace.smart_education.controller.admin;
 
 import am.itspace.smart_education.common.entity.Comment;
-import am.itspace.smart_education.common.entity.Lesson;
 import am.itspace.smart_education.common.service.CommentsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -47,7 +46,7 @@ public class AdminCommentsController {
 
     @GetMapping("/update/{id}")
     public String updateComments(ModelMap modelMap,
-                         @PathVariable("id") int id) {
+                                 @PathVariable("id") int id) {
         Optional<Comment> byId = commentsService.findById(id);
         if (byId.isEmpty()) {
             return "redirect:/admin/comment";

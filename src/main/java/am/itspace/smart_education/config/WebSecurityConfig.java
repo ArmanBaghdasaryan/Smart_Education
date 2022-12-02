@@ -2,7 +2,6 @@ package am.itspace.smart_education.config;
 
 import am.itspace.smart_education.common.entity.Role;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -34,8 +33,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET,"/user/register").permitAll()
-                .antMatchers(HttpMethod.POST,"/user/register").permitAll()
+                .antMatchers("/admin/*").hasAuthority(Role.ADMIN.name())
+                .antMatchers("/user/register").permitAll()
                 .anyRequest()
                 .permitAll()
                 .and()

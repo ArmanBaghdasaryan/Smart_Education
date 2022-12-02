@@ -321,7 +321,7 @@ Docs & License: https://fullcalendar.io/
             return rowStructs;
         };
         // Given a row # and an array of segments all in the same row, render a <tbody> element, a skeleton that contains
-        // the segments. Returns object with a bunch of internal data about how the render was calculated.
+        // the segments. Returns object with a bunch of internal data about.html how the render was calculated.
         // NOTE: modifies rowSegs
         DayGridEventRenderer.prototype.renderSegRow = function (row, rowSegs) {
             var isRtl = this.context.isRtl;
