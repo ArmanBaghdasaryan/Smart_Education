@@ -1319,7 +1319,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        compilerVersions = _base.REVISION_CHANGES[compilerRevision];
 	    throw new _exception2['default']('Template was precompiled with an older version of Handlebars than the current runtime. ' + 'Please update your precompiler to a newer version (' + runtimeVersions + ') or downgrade your runtime to an older version (' + compilerVersions + ').');
 	  } else {
-	    // Use the embedded version info since the runtime doesn't know about this revision yet
+	    // Use the embedded version info since the runtime doesn't know about.html this revision yet
 	    throw new _exception2['default']('Template was precompiled with a newer version of Handlebars than the current runtime. ' + 'Please update your runtime to a newer version (' + compilerInfo[1] + ').');
 	  }
 	}
@@ -2336,7 +2336,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    this.popState();
 	                    // Should be using `this.topState()` below, but it currently
 	                    // returns the second top instead of the first top. Opened an
-	                    // issue about it at https://github.com/zaach/jison/issues/291
+	                    // issue about.html it at https://github.com/zaach/jison/issues/291
 	                    if (this.conditionStack[this.conditionStack.length - 1] === 'raw') {
 	                        return 15;
 	                    } else {
@@ -3914,7 +3914,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // When using true SourceNodes, this will update all references to the given alias
 	    // as the source nodes are reused in situ. For the non-source node compilation mode,
 	    // aliases will not be used, but this case is already being run on the client and
-	    // we aren't concern about minimizing the template size.
+	    // we aren't concern about.html minimizing the template size.
 	    var aliasCount = 0;
 	    _Object$keys(this.aliases).forEach(function (alias) {
 	      var node = _this.aliases[alias];

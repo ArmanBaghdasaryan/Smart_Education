@@ -2,7 +2,7 @@ package am.itspace.smart_education.controller.web;
 
 import am.itspace.smart_education.common.entity.Role;
 import am.itspace.smart_education.common.entity.User;
-import am.itspace.smart_education.common.service.UserService;
+import am.itspace.smart_education.common.service.serviceImpl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -17,11 +17,11 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class TeachersController {
-    private final UserService userService;
-   
+    private final UserServiceImpl userService;
+
 
     @GetMapping("/teachers")
-    public String bookSinglePage(ModelMap modelMap) {
+    public String teacherSinglePage(ModelMap modelMap) {
         List<User> allTeacher = userService.findByRole(Role.TEACHER);
         if (allTeacher.isEmpty()) {
             return "redirect:/";

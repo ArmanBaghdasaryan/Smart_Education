@@ -3,6 +3,9 @@ package am.itspace.smart_education.controller.admin;
 
 import am.itspace.smart_education.common.entity.Lesson;
 import am.itspace.smart_education.common.service.LessonService;
+import am.itspace.smart_education.dto.CreateLessonDto;
+import am.itspace.smart_education.dto.RequestAdminLessonDto;
+import am.itspace.smart_education.mapper.LessonMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,6 +19,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AdminLessonController {
     private final LessonService lessonService;
+    private final LessonMapper mapper;
+
     @GetMapping
     public String lesson(ModelMap modelMap) {
         List<Lesson> allLessons = lessonService.findAll();
@@ -30,13 +35,13 @@ public class AdminLessonController {
 
 
     @PostMapping("/add")
-    public String addLesson(@ModelAttribute Lesson lesson) {
-        lessonService.save(lesson);
+    public String addLesson(@ModelAttribute CreateLessonDto lessonDto) {
+        lessonService.save(mapper.map(lessonDto));
         return "redirect:/admin/lesson";
     }
 
 
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteLesson(@PathVariable("id") int id) {
         lessonService.deleteById(id);
         return "redirect:/admin/lesson";
@@ -53,10 +58,9 @@ public class AdminLessonController {
         return "admin/editLesson";
     }
 
-
     @PostMapping("/update")
-    public String update(@ModelAttribute Lesson lesson) {
-        lessonService.updateLesson(lesson);
+    public String update(@ModelAttribute RequestAdminLessonDto lessonDto) {
+        lessonService.updateLesson(mapper.map(lessonDto));
         return "redirect:/admin/lesson";
     }
 

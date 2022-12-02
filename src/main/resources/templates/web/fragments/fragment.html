@@ -1,4 +1,3 @@
-
 <div th:fragment="loginImport" th:remove="tag">
 
     <!-- Modal -->
@@ -18,8 +17,8 @@
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div class="tab-pane active" >
-                            <form action="/login" method="post" role="form" class="form-horizontal" >
+                        <div class="tab-pane active">
+                            <form action="/login" method="post" role="form" class="form-horizontal">
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <span style="color: red" th:if="${error != null}">Invalid credentials</span>
@@ -29,7 +28,8 @@
 
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <input class="form-control" name="password" placeholder="password" type="password">
+                                        <input class="form-control" name="password" placeholder="password"
+                                               type="password">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -43,7 +43,8 @@
                             </form>
                         </div>
                         <div class="tab-pane" id="Registration">
-                            <form action="/user/register" role="form" class="form-horizontal" method="post">
+                            <form action="/user/register" role="form" class="form-horizontal" method="post"
+                                  enctype="multipart/form-data">
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <input class="form-control" name="name" placeholder="Name" type="text">
@@ -56,27 +57,34 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <input class="form-control" name="email" placeholder="Email" type="email">
+                                        <input class="form-control" name="email" placeholder="email" type="email">
+                                        <span style="color: red" th:if="${msgEmail != null}"
+                                              th:text="${msgEmail}"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <input class="form-control" name="phoneNumber" placeholder="Phone Number" type="text">
+                                        <input class="form-control" name="phoneNumber" placeholder="Phone Number"
+                                               type="text">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <input class="form-control" name="bio" id="Bio" placeholder="Biography" type="text">
+                                        <input class="form-control" name="bio" id="Bio" placeholder="Biography"
+                                               type="text">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <input type="file" name="picture" class="form-control">
+                                        <input type="file" name="profPic" class="form-control" accept="image/*">
+                                        <span style="color: red" th:if="${msgFile != null}"
+                                              th:text="${msgFile}"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <input class="form-control" name="password" placeholder="Password" type="password">
+                                        <input class="form-control" name="password" placeholder="Password"
+                                               type="password">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -84,7 +92,7 @@
                                         <button type="submit" class="btn btn-light btn-radius btn-brd grd1">
                                             Save &amp; Continue
                                         </button>
-                                        <a href="index" class="btn btn-light btn-radius btn-brd grd1">
+                                        <a href="/" class="btn btn-light btn-radius btn-brd grd1">
                                             Cancel</a>
                                     </div>
                                 </div>

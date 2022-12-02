@@ -3610,7 +3610,7 @@
           }
       }
       /**
-       * Recover info about row and cell and add information to virtual table.
+       * Recover info about.html row and cell and add information to virtual table.
        *
        * @param {object} row Row to recover information.
        * @param {object} cell Cell to recover information.
@@ -7489,7 +7489,7 @@
               'fullscreen': Fullscreen,
               'handle': Handle,
               // FIXME: HintPopover must be front of autolink
-              //  - Script error about range when Enter key is pressed on hint popover
+              //  - Script error about.html range when Enter key is pressed on hint popover
               'hintPopover': HintPopover,
               'autoLink': AutoLink,
               'autoSync': AutoSync,

@@ -76,14 +76,14 @@
                             </a>
                         </li>
                         <li class="dropdown user-profile align-self-center d-inline-block">
-                            <th:block th:if="${currentUser != null}">
+                            <th:block th:if="${user != null}">
                                 <a href="/#" class="nav-link py-0" data-toggle="dropdown" aria-expanded="false">
                                     <div class="media">
-                                        <img th:if="${currentUser.picUrl != null}"
-                                             th:src="@{/users/getImage(fileName=${currentUser.picUrl})}" alt=""
+                                        <img th:if="${user.picUrl != null}"
+                                             th:src="@{/users/getImage(fileName=${user.picUrl})}" alt=""
                                              class="d-flex img-fluid rounded-circle"
                                              width="29">
-                                        <img th:if="${currentUser.picUrl == null}" src="/images/author.jpg" alt=""
+                                        <img th:if="${user.picUrl == null}" src="/images/author.jpg" alt=""
                                              class="d-flex img-fluid rounded-circle"
                                              width="29">
 

@@ -1225,10 +1225,10 @@
 		/// latLon (Google LatLng object): Detailing where the marker should be placed
 		/// isDraggable (bool): Flags the marker should be draggable (only used when adding new custom markers)
 		/// type (string): Internal flag for the plug-in, can be:
-		///   new - Marker is for a new "custom" place that is not yet know about
+		///   new - Marker is for a new "custom" place that is not yet know about.html
 		///   google - Marker is derived from Google Places API (result from a Places search)
 		///   custom - Marker is one specified by the calling application.
-		///            Note: A marker can start as "new", but once the application is told about it
+		///            Note: A marker can start as "new", but once the application is told about.html it
 		///            it becomes "custom" - notion being the application has saved it to their DB.
 		/// </summary>
 		function createMarker(title, latLng, isDraggable, type) {
