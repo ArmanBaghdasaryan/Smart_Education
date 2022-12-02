@@ -2,6 +2,7 @@ package am.itspace.smart_education.controller.web;
 
 import am.itspace.smart_education.common.entity.Answer;
 import am.itspace.smart_education.common.entity.Question;
+import am.itspace.smart_education.common.entity.User;
 import am.itspace.smart_education.common.repository.AnswerRepository;
 import am.itspace.smart_education.common.repository.QuestionRepository;
 import am.itspace.smart_education.dto.AnswerDto;
@@ -25,7 +26,6 @@ public class AnswerController {
 
     private final AnswerRepository answerRepository;
     private final QuestionRepository questionRepository;
-
     private final AnswerMapper answerMapper;
 
     @GetMapping("/answer_save")
@@ -41,6 +41,7 @@ public class AnswerController {
     @ResponseBody
     public ResponseEntity<Answer> chatSave(@RequestBody AnswerDto answerDto,
                                            @AuthenticationPrincipal CurrentUser currentUser) {
+        User user = currentUser.getUser();
         return ResponseEntity.ok(answerRepository.save(answerMapper.map(answerDto)));
 
     }
