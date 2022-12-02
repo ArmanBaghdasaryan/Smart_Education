@@ -50,6 +50,7 @@
             </column>
             <column name="total_hours" type="double"/>
             <column name="is_online" type="int(1)" defaultValue="0"/>
+<!--            <column name="picture" type="varchar(255)"/>-->
         </createTable>
 
         <createTable tableName="questions">

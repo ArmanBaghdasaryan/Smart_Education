@@ -1,5 +1,6 @@
 package am.itspace.smart_education.security;
 
+import am.itspace.smart_education.common.entity.Lesson;
 import am.itspace.smart_education.common.entity.User;
 import org.springframework.security.core.authority.AuthorityUtils;
 
@@ -15,4 +16,7 @@ public class CurrentUser extends org.springframework.security.core.userdetails.U
     public User getUser() {
         return user;
     }
+
+
+
 }
