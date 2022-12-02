@@ -1,7 +1,7 @@
 package am.itspace.smart_education.controller.web;
 
 import am.itspace.smart_education.common.entity.Lesson;
-import am.itspace.smart_education.common.service.LessonService;
+import am.itspace.smart_education.common.service.serviceImpl.LessonServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,14 +14,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CoursePageController {
 
-private final LessonService lessonService;
+private final LessonServiceImpl lessonServiceImpl;
     @GetMapping("/coursePage")
     public String course() {
         return "web/coursePage";
     }
     @GetMapping("/course/{id}")
     public String courseSinglePage(@PathVariable("id") int id, ModelMap modelMap) {
-        Optional<Lesson> byId = lessonService.findById(id);
+        Optional<Lesson> byId = lessonServiceImpl.findById(id);
         if (byId.isEmpty()) {
             return "redirect:/";
         }
