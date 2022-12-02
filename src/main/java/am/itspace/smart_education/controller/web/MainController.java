@@ -1,5 +1,6 @@
 package am.itspace.smart_education.controller.web;
 
+import am.itspace.smart_education.common.entity.Lesson;
 import am.itspace.smart_education.common.entity.Role;
 import am.itspace.smart_education.common.entity.User;
 import am.itspace.smart_education.security.CurrentUser;

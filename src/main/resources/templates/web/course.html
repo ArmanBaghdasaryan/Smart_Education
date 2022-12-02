@@ -105,7 +105,7 @@
                 <div class="col-lg-6 col-md-6 col-12" th:each="cours:${course}">
                     <div class="course-item">
 						<div class="image-blog">
-							<img src="/images/blog_1.jpg" alt="" class="btn">
+                            <img th:src="@{/getPic(fileName=${cours.picture})}"  alt="">
 						</div>
 						<div class="course-br">
 							<div class="course-title">
@@ -179,7 +179,7 @@
                         <p> Integer rutrum ligula eu dignissim laoreet. Pellentesque venenatis nibh sed tellus faucibus bibendum. Sed fermentum est vitae rhoncus molestie. Cum sociis natoque penatibus et magnis dis montes.</p>
                         <div class="footer-right">
 							<ul class="footer-links-soi">
-								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="/facebook.com"><i class="fa fa-facebook"></i></a></li>
 								<li><a href="#"><i class="fa fa-github"></i></a></li>
 								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
 								<li><a href="#"><i class="fa fa-dribbble"></i></a></li>

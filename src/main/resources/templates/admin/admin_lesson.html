@@ -81,6 +81,10 @@
                                             <p class="mb-0 small">Is Online: </p>
                                             <p class="user-email" th:text="${lesson.isOnline()}"></p>
                                         </div>
+                                        <div class="contact-email">
+                                            <img th:src="@{/getImage(fileName=${lesson.picture})}"  alt=""
+                                                 class="lesson-image img-fluid">
+                                        </div>
                                     </div>
                                     <div class="line-h-1 h5">
                                         <a class="text-success edit-contact"

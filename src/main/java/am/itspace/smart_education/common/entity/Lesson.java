@@ -12,6 +12,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+
 @Entity
 @Table(name = "lesson")
 public class Lesson {
@@ -25,6 +26,7 @@ public class Lesson {
     private Duration duration;
     private double totalHours;
     private boolean isOnline;
+    private String picture;
     @ManyToMany
     @JoinTable(name = "subscription",
     joinColumns = @JoinColumn(name = "lesson_id"),
