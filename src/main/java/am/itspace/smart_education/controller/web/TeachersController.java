@@ -32,7 +32,7 @@ public class TeachersController {
     }
 
     @GetMapping(value = "/getImage", produces = MediaType.IMAGE_JPEG_VALUE)
-    public @ResponseBody byte[] getImage(@RequestParam("fileName") String fileName) throws IOException {
-        return userService.getUserImage(fileName);
+    public @ResponseBody byte[] getImage(@RequestParam("fileName") String file) throws IOException {
+        return userService.getUserImage(file);
     }
 }

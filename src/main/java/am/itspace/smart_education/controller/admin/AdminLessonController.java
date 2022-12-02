@@ -3,9 +3,6 @@ package am.itspace.smart_education.controller.admin;
 
 import am.itspace.smart_education.common.entity.Lesson;
 import am.itspace.smart_education.common.service.LessonService;
-import am.itspace.smart_education.dto.CreateLessonDto;
-import am.itspace.smart_education.dto.RequestAdminLessonDto;
-import am.itspace.smart_education.mapper.LessonMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -35,13 +32,22 @@ public class AdminLessonController {
 
 
     @PostMapping("/add")
+    public String addLesson(@ModelAttribute Lesson lesson,
+                          @RequestParam("profPic") MultipartFile file) throws IOException {
+
+        lessonService.save(lesson, file);
+        return "redirect:/admin/user";
+    }
+    @GetMapping(value = "/getImage", produces = MediaType.IMAGE_JPEG_VALUE)
+    public @ResponseBody byte[] getImage(@RequestParam("fileName") String fileName) throws IOException {
+        return lessonService.getLessonImage(fileName);
     public String addLesson(@ModelAttribute CreateLessonDto lessonDto) {
         lessonService.save(mapper.map(lessonDto));
         return "redirect:/admin/lesson";
     }
 
 
-    @PostMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteLesson(@PathVariable("id") int id) {
         lessonService.deleteById(id);
         return "redirect:/admin/lesson";
@@ -57,6 +63,7 @@ public class AdminLessonController {
         modelMap.addAttribute("lessons", byId.get());
         return "admin/editLesson";
     }
+
 
     @PostMapping("/update")
     public String update(@ModelAttribute RequestAdminLessonDto lessonDto) {
