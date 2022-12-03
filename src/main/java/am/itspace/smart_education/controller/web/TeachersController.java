@@ -23,9 +23,6 @@ public class TeachersController {
     @GetMapping("/teachers")
     public String teacherSinglePage(ModelMap modelMap) {
         List<User> allTeacher = userService.findByRole(Role.TEACHER);
-        if (allTeacher.isEmpty()) {
-            return "redirect:/";
-        }
         modelMap.addAttribute("teachers", allTeacher);
         return "web/teachers";
 

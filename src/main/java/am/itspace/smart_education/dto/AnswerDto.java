@@ -14,5 +14,4 @@ public class AnswerDto {
     private String answerText;
     private int questionId;
 
-
 }

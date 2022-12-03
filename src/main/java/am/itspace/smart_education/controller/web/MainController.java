@@ -46,9 +46,6 @@ public class MainController {
     public String home(ModelMap modelMap) {
         List<Lesson> allLesson = lessonService.findAll();
         List<User> allTeacher = userService.findByRole(Role.TEACHER);
-        if (allLesson.isEmpty()) {
-            return "redirect:/";
-        }
         modelMap.addAttribute("courses", allLesson);
         modelMap.addAttribute("teachersHome", allTeacher);
         return "web/index";
