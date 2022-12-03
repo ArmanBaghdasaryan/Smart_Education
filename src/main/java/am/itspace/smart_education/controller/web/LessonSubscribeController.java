@@ -16,7 +16,6 @@ public class LessonSubscribeController {
 
     @GetMapping("/subscribe/new")
     public String newSubscribe(@RequestParam("lessonId") int lessonId, @AuthenticationPrincipal CurrentUser user) {
-
         lessonServiceImpl.subscribe(lessonId, user.getUser().getId());
         return "redirect:/";
     }

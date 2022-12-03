@@ -1,12 +1,8 @@
 package am.itspace.smart_education.common.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-
 import java.util.Set;
 
 
@@ -30,8 +26,8 @@ public class Lesson {
     private String picture;
     @ManyToMany
     @JoinTable(name = "subscription",
-    joinColumns = @JoinColumn(name = "lesson_id"),
-    inverseJoinColumns = @JoinColumn(name = "user_id"))
+            joinColumns = @JoinColumn(name = "lesson_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> userSet;
 
 }

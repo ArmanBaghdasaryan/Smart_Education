@@ -22,9 +22,6 @@ private final UserService userService;
     @GetMapping("/course")
     public String bookSinglePage(ModelMap modelMap) {
         List<Lesson> allLesson = lessonServiceImpl.findAll();
-        if (allLesson.isEmpty()) {
-            return "redirect:/";
-        }
         modelMap.addAttribute("course", allLesson);
         return "web/course";
 

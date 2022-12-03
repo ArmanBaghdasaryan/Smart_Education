@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,4 +21,6 @@ public class Question {
     private String description;
     @ManyToOne
     private User user;
+    @OneToMany(mappedBy = "question")
+    private List<Answer> answers;
 }
