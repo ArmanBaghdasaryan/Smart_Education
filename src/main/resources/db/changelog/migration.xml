@@ -50,7 +50,7 @@
             </column>
             <column name="total_hours" type="double"/>
             <column name="is_online" type="int(1)" defaultValue="0"/>
-<!--            <column name="picture" type="varchar(255)"/>-->
+            <column name="picture" type="varchar(255)"/>
         </createTable>
 
         <createTable tableName="questions">
@@ -91,18 +91,6 @@
                                  referencedTableName="user"/>
 
 
-        <createTable tableName="comments">
-            <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="description" type="text"/>
-            <column name="user_id" type="BIGINT"/>
-        </createTable>
-        <addForeignKeyConstraint baseColumnNames="user_id"
-                                 baseTableName="comments"
-                                 constraintName="comments_fk_user_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="user"/>
 
         <createTable tableName="subscription">
             <column name="user_id" type="BIGINT">

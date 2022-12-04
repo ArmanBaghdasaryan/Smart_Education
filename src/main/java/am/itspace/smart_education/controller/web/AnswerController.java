@@ -2,12 +2,9 @@ package am.itspace.smart_education.controller.web;
 
 import am.itspace.smart_education.common.entity.Answer;
 import am.itspace.smart_education.common.entity.Question;
-import am.itspace.smart_education.common.entity.User;
-import am.itspace.smart_education.common.repository.AnswerRepository;
-import am.itspace.smart_education.common.repository.QuestionRepository;
-import am.itspace.smart_education.common.repository.UserRepository;
+import am.itspace.smart_education.common.service.AnswerService;
+import am.itspace.smart_education.common.service.QuestionsService;
 import am.itspace.smart_education.dto.AnswerDto;
-import am.itspace.smart_education.mapper.AnswerMapper;
 import am.itspace.smart_education.security.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,16 +22,14 @@ import java.util.Optional;
 @Slf4j
 public class AnswerController {
 
-    private final AnswerRepository answerRepository;
-    private final UserRepository userRepository;
-    private final QuestionRepository questionRepository;
-    private final AnswerMapper answerMapper;
+    private final AnswerService answerService;
+    private final QuestionsService questionsService;
 
     @GetMapping("/answer_save")
     public String questions(ModelMap modelMap) {
-        List<Question> questions = questionRepository.findAll();
+        List<Question> questions = questionsService.findAll();
         modelMap.addAttribute("questions", questions);
-        List<Answer> answers = answerRepository.findAll();
+        List<Answer> answers = answerService.findAll();
         modelMap.addAttribute("answers", answers);
         return "web/answer";
     }
@@ -43,22 +38,13 @@ public class AnswerController {
     @ResponseBody
     public ResponseEntity<Answer> chatSave(@RequestBody AnswerDto answerDto,
                                            @AuthenticationPrincipal CurrentUser currentUser) {
-        Optional<User> byId = userRepository.findById(currentUser.getUser().getId());
-        Optional<Question> questionById = questionRepository.findById(answerDto.getQuestionId());
-        byId.map(user -> {
-            log.info("User with id was found: {}", user.getId());
-            Answer answer = answerMapper.map(answerDto);
-            answer.setUser(user);
-            log.info("Answer with id was found: {}", answer.getId());
-            questionById.ifPresent(answer::setQuestion);
-            return ResponseEntity.ok(answerRepository.save(answer));
-        });
+        answerService.save(answerDto, currentUser);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/single_question")
     public String singleQuestion(@RequestParam int questionId, ModelMap modelMap) {
-        Optional<Question> byId = questionRepository.findById(questionId);
+        Optional<Question> byId = questionsService.findById(questionId);
         log.info("Question with id was found: {}", byId.get().getId());
         byId.ifPresent(question -> {
             modelMap.addAttribute("question", question);

@@ -4,7 +4,9 @@ import am.itspace.smart_education.common.entity.Question;
 import am.itspace.smart_education.common.repository.QuestionRepository;
 import am.itspace.smart_education.common.service.QuestionsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,4 +35,5 @@ public class QuestionsServiceImpl implements QuestionsService {
     public void updateQuestion(Question question) {
         questionRepository.save(question);
     }
+
 }

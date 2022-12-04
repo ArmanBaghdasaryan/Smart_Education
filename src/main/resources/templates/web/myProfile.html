@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-lnkkn
+<table border="2px">
+    <tr>
+   <th>course title</th>
+   <th>course price</th>
+   <th>course duration</th>
+   <th>course total_house</th>
+   <th>course is online</th>
+    </tr>
+    <tr th:each="subs: ${mySub}">
+        <td th:text="${subs.title}"></td>
+        <td th:text="${subs.price}"></td>
+        <td th:text="${subs.duration}"></td>
+        <td th:text="${subs.totalHours}"></td>
+        <td th:text="${subs.isOnline()}"></td>
+    </tr>
+</table>
+
 </body>
 </html>

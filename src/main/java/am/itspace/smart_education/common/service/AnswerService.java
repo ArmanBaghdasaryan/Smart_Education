@@ -2,7 +2,10 @@ package am.itspace.smart_education.common.service;
 
 
 import am.itspace.smart_education.common.entity.Answer;
-import org.springframework.stereotype.Service;
+import am.itspace.smart_education.common.entity.User;
+import am.itspace.smart_education.dto.AnswerDto;
+import am.itspace.smart_education.security.CurrentUser;
+import liquibase.pro.packaged.A;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,11 +16,14 @@ public interface AnswerService {
 
     List<Answer> findAll();
 
-    void save(Answer answers);
+    void save(AnswerDto answerDto,CurrentUser currentUser);
 
     void deleteById(int id);
 
     Optional<Answer> findById(int id);
 
     void updateAnswer(Answer answer);
+
+
+
 }

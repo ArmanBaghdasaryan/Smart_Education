@@ -1,5 +1,6 @@
 package am.itspace.smart_education.common.service;
 
+import am.itspace.smart_education.common.entity.Lesson;
 import am.itspace.smart_education.common.entity.Role;
 import am.itspace.smart_education.common.entity.User;
 import org.springframework.ui.ModelMap;
