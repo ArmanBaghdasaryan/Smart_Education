@@ -2,9 +2,14 @@ package am.itspace.smart_education.common.service.serviceImpl;
 
 
 import am.itspace.smart_education.common.entity.Answer;
+import am.itspace.smart_education.common.entity.Question;
+import am.itspace.smart_education.common.entity.User;
 import am.itspace.smart_education.common.repository.AnswerRepository;
+import am.itspace.smart_education.common.repository.QuestionRepository;
+import am.itspace.smart_education.common.repository.UserRepository;
 import am.itspace.smart_education.common.service.AnswerService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

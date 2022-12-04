@@ -30,35 +30,28 @@ public class AnswerController {
     private final QuestionRepository questionRepository;
     private final AnswerMapper answerMapper;
 
-    @GetMapping("/answer_save")
-    public String questions(ModelMap modelMap) {
-        List<Question> questions = questionRepository.findAll();
-        modelMap.addAttribute("questions", questions);
-        List<Answer> answers = answerRepository.findAll();
-        modelMap.addAttribute("answers", answers);
-        return "web/answer";
-    }
-
-    @PostMapping("/answer_save")
+    @PostMapping("/single_question")
     @ResponseBody
-    public ResponseEntity<Answer> chatSave(@RequestBody AnswerDto answerDto,
-                                           @AuthenticationPrincipal CurrentUser currentUser) {
+    public ResponseEntity<Answer> answerSave(@RequestBody AnswerDto answerDto,
+                                             @AuthenticationPrincipal CurrentUser currentUser) {
         Optional<User> byId = userRepository.findById(currentUser.getUser().getId());
         Optional<Question> questionById = questionRepository.findById(answerDto.getQuestionId());
         byId.map(user -> {
-            log.info("User with id was found: {}", user.getId());
+            log.info("Answer with id was found: {}", user.getId());
             Answer answer = answerMapper.map(answerDto);
             answer.setUser(user);
-            log.info("Answer with id was found: {}", answer.getId());
+            log.info("Question with id was found: {}", answer.getId());
             questionById.ifPresent(answer::setQuestion);
             return ResponseEntity.ok(answerRepository.save(answer));
         });
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/single_question")
-    public String singleQuestion(@RequestParam int questionId, ModelMap modelMap) {
-        Optional<Question> byId = questionRepository.findById(questionId);
+    @GetMapping("/single_question/{id}")
+    public String answerToQuestion(@PathVariable("id") int id, ModelMap modelMap) {
+        List<Answer> answers = answerRepository.findAnswersByQuestionId(id);
+        modelMap.addAttribute("answers", answers);
+        Optional<Question> byId = questionRepository.findById(id);
         log.info("Question with id was found: {}", byId.get().getId());
         byId.ifPresent(question -> {
             modelMap.addAttribute("question", question);
@@ -66,5 +59,4 @@ public class AnswerController {
 
         return "web/single_question";
     }
-
 }
