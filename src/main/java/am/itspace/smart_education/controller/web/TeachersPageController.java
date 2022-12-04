@@ -1,7 +1,7 @@
 package am.itspace.smart_education.controller.web;
 
 import am.itspace.smart_education.common.entity.User;
-import am.itspace.smart_education.common.service.serviceImpl.UserServiceImpl;
+import am.itspace.smart_education.common.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class TeachersPageController {
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
     @GetMapping("/teachersPage")
     public String teachers() {

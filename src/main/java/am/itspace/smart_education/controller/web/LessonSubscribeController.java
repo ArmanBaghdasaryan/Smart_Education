@@ -1,6 +1,6 @@
 package am.itspace.smart_education.controller.web;
 
-import am.itspace.smart_education.common.service.serviceImpl.LessonServiceImpl;
+import am.itspace.smart_education.common.service.LessonService;
 import am.itspace.smart_education.security.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class LessonSubscribeController {
 
-    private final LessonServiceImpl lessonServiceImpl;
+    private final LessonService lessonService;
 
     @GetMapping("/subscribe/new")
     public String newSubscribe(@RequestParam("lessonId") int lessonId, @AuthenticationPrincipal CurrentUser user) {
-        lessonServiceImpl.subscribe(lessonId, user.getUser().getId());
+        lessonService.subscribe(lessonId, user.getUser().getId());
         return "redirect:/";
     }
 }
