@@ -2,7 +2,7 @@ package am.itspace.smart_education.controller.web;
 
 import am.itspace.smart_education.common.entity.Role;
 import am.itspace.smart_education.common.entity.User;
-import am.itspace.smart_education.common.service.serviceImpl.UserServiceImpl;
+import am.itspace.smart_education.common.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,7 @@ import java.io.IOException;
 public class UserController {
 
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/user/register")
