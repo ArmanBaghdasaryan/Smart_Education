@@ -25,16 +25,33 @@ import java.util.Optional;
 @Slf4j
 public class AnswerServiceImpl implements AnswerService {
 
+    private final UserRepository userRepository;
+    private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
     private final UserRepository userRepository;
     private final QuestionRepository questionRepository;
+
     private final AnswerMapper answerMapper;
 
     public List<Answer> findAll() {
         return answerRepository.findAll();
     }
 
-    public void save(AnswerDto answerDto,@AuthenticationPrincipal CurrentUser currentUser) {
+
+
+    public void save(AnswerDto answerDto,CurrentUser currentUser) {
+        Optional<User> byId = userRepository.findById(currentUser.getUser().getId());
+        Optional<Question> questionById = questionRepository.findById(answerDto.getQuestionId());
+        byId.map(user -> {
+            log.info("User with id was found: {}", user.getId());
+            Answer answer = answerMapper.map(answerDto);
+            answer.setUser(user);
+            log.info("Answer with id was found: {}", answer.getId());
+            questionById.ifPresent(answer::setQuestion);
+            return answerRepository.save(answer);
+        });
+        
+  public void save(AnswerDto answerDto,@AuthenticationPrincipal CurrentUser currentUser) {
         Optional<User> byId = userRepository.findById(currentUser.getUser().getId());
         Optional<Question> questionById = questionRepository.findById(answerDto.getQuestionId());
         byId.map(user -> {

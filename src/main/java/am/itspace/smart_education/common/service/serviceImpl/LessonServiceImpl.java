@@ -5,6 +5,8 @@ import am.itspace.smart_education.common.entity.User;
 import am.itspace.smart_education.common.repository.LessonRepository;
 import am.itspace.smart_education.common.repository.UserRepository;
 import am.itspace.smart_education.common.service.LessonService;
+import am.itspace.smart_education.security.CurrentUser;
+import am.itspace.smart_education.security.UserDetailServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,11 +19,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class LessonServiceImpl implements LessonService {
 
+    private final UserDetailServiceImpl userDetailService;
     private final LessonRepository lessonRepository;
     private final UserRepository userRepository;
     @Value("${smart.education.images.folder}")
@@ -34,6 +38,7 @@ public class LessonServiceImpl implements LessonService {
     public List<Lesson> findAll() {
         return lessonRepository.findAll();
     }
+
 
     public void save(Lesson lesson, MultipartFile multipartFile) throws IOException {
         if (!multipartFile.isEmpty() && multipartFile.getSize() > 0) {
@@ -78,4 +83,14 @@ public class LessonServiceImpl implements LessonService {
     public void save(Lesson lesson) {
         lessonRepository.save(lesson);
     }
+
+    @Override
+    public Set<Lesson> findAllByUser(CurrentUser currentUser) {
+        Optional<User> byId = userRepository.findById(currentUser.getUser().getId());
+        return byId.map(User::getLessons)
+                .orElse(Set.of());
+    }
+
 }
+
+

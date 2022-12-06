@@ -17,6 +17,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CourseController {
 
+private final LessonService lessonService;
+
     private final LessonService lessonService;
 
     @GetMapping("/course")

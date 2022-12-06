@@ -24,6 +24,11 @@ public class QuestionController {
 
     private final QuestionsService questionsService;
 
+    public String questions(ModelMap modelMap) {
+        List<Question> allQuestions = questionsService.findAll();
+        modelMap.addAttribute("questions", allQuestions);
+        return "web/answer";
+
     @GetMapping("/question")
     public String questions(ModelMap modelMap) {
         List<Question> questions = questionsService.findAll();

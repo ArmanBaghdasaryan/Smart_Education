@@ -1,6 +1,9 @@
 package am.itspace.smart_education.controller.web;
 
 import am.itspace.smart_education.common.entity.Answer;
+import am.itspace.smart_education.common.entity.Question;
+import am.itspace.smart_education.common.service.AnswerService;
+import am.itspace.smart_education.common.service.QuestionsService;
 import am.itspace.smart_education.common.service.AnswerService;
 import am.itspace.smart_education.dto.AnswerDto;
 import am.itspace.smart_education.security.CurrentUser;
@@ -16,14 +19,34 @@ import org.springframework.web.bind.annotation.*;
 public class AnswerController {
 
     private final AnswerService answerService;
+    private final QuestionsService questionsService;
+
+    @GetMapping("/answer_save")
+    public String questions(ModelMap modelMap) {
+        List<Question> questions = questionsService.findAll();
+        modelMap.addAttribute("questions", questions);
+        List<Answer> answers = answerService.findAll();
+        modelMap.addAttribute("answers", answers);
+        return "web/answer";
+    }
 
     @PostMapping("/single_question")
     @ResponseBody
+    public ResponseEntity<Answer> chatSave(@RequestBody AnswerDto answerDto,
+                                           @AuthenticationPrincipal CurrentUser currentUser) {
     public ResponseEntity<Answer> answerSave(@RequestBody AnswerDto answerDto,
                                              @AuthenticationPrincipal CurrentUser currentUser) {
         answerService.save(answerDto, currentUser);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/single_question")
+    public String singleQuestion(@RequestParam int questionId, ModelMap modelMap) {
+        Optional<Question> byId = questionsService.findById(questionId);
+        log.info("Question with id was found: {}", byId.get().getId());
+        byId.ifPresent(question -> {
+            modelMap.addAttribute("question", question);
+        });
 
     @GetMapping("/single_question/{id}")
     public String answerToQuestion(@PathVariable("id") int id, ModelMap modelMap) {

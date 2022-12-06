@@ -9,9 +9,10 @@ import am.itspace.smart_education.dto.QuestionDto;
 import am.itspace.smart_education.mapper.QuestionMapper;
 import am.itspace.smart_education.security.CurrentUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
-
+import org.springframework.ui.ModelMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +44,7 @@ public class QuestionsServiceImpl implements QuestionsService {
     public void updateQuestion(Question question) {
         questionRepository.save(question);
     }
-
+    
     public void saveQuestion(QuestionDto questionDto, @AuthenticationPrincipal CurrentUser currentUser) {
         Optional<User> byId = userRepository.findById(currentUser.getUser().getId());
         byId.map(user -> {
@@ -53,4 +54,5 @@ public class QuestionsServiceImpl implements QuestionsService {
         });
 
     }
+
 }
