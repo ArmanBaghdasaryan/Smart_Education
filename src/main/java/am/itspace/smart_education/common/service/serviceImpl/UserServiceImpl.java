@@ -87,15 +87,6 @@ public class UserServiceImpl implements UserService {
         return IOUtils.toByteArray(inputStream);
     }
 
-    public Optional<User> findByEmail(String email) {
-
-        Optional<User> byEmail = userRepository.findByEmail(email);
-        if (byEmail.isEmpty()) {
-            throw new RuntimeException("Email with " + email + " email does not exists");
-        }
-        return byEmail;
-    }
-
     public void checkedImage(User user, MultipartFile file) throws IOException {
         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
         File newFile = new File(folderPath + File.separator + fileName);
