@@ -1,7 +1,7 @@
 package am.itspace.smart_education.common.service;
 
 import am.itspace.smart_education.common.entity.Lesson;
-import am.itspace.smart_education.common.entity.User;
+import am.itspace.smart_education.security.CurrentUser;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,6 +32,7 @@ public interface LessonService {
     void checkedImage(Lesson lesson, MultipartFile file) throws IOException;
 
     void save(Lesson lesson);
-//    List<Lesson> findAllByUserSet(Set<User> userSet);
+
+    Set<Lesson> findAllByUser(CurrentUser currentUser);
 
 }

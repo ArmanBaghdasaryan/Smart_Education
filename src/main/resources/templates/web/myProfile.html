@@ -7,11 +7,12 @@
 <body>
 <table border="2px">
     <tr>
-   <th>course title</th>
-   <th>course price</th>
-   <th>course duration</th>
-   <th>course total_house</th>
-   <th>course is online</th>
+        <th>course title</th>
+        <th>course price</th>
+        <th>course duration</th>
+        <th>course total_house</th>
+        <th>course is online</th>
+        <th>Delete</th>
     </tr>
     <tr th:each="subs: ${mySub}">
         <td th:text="${subs.title}"></td>

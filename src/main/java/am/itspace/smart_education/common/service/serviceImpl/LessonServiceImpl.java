@@ -5,6 +5,8 @@ import am.itspace.smart_education.common.entity.User;
 import am.itspace.smart_education.common.repository.LessonRepository;
 import am.itspace.smart_education.common.repository.UserRepository;
 import am.itspace.smart_education.common.service.LessonService;
+import am.itspace.smart_education.security.CurrentUser;
+import am.itspace.smart_education.security.UserDetailServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +25,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class LessonServiceImpl implements LessonService {
 
+    private final UserDetailServiceImpl userDetailService;
     private final LessonRepository lessonRepository;
     private final UserRepository userRepository;
     @Value("C://Users//user//IdeaProjects//Smart_Education//image")
@@ -81,10 +84,12 @@ public class LessonServiceImpl implements LessonService {
         lessonRepository.save(lesson);
     }
 
-
-//    public List<Lesson> findAllByUserSet(Set<User> userSet) {
-//        return lessonRepository.findAllByUserSet(userSet);
-//    }
+    @Override
+    public Set<Lesson> findAllByUser(CurrentUser currentUser) {
+        Optional<User> byId = userRepository.findById(currentUser.getUser().getId());
+        return byId.map(User::getLessons)
+                .orElse(Set.of());
+    }
 
 }
 
