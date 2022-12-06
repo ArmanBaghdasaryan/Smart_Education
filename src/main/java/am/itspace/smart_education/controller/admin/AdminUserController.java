@@ -13,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +43,7 @@ public class AdminUserController {
     @PostMapping("/add")
     public String addUser(@ModelAttribute CreateUserDto userDto,
                           @RequestParam("profPic") MultipartFile file,
-                          ModelMap modelMap) throws IOException {
+                          ModelMap modelMap) throws IOException, MessagingException {
         User user = mapper.map(userDto);
         if (userService.checkUserEmailAndUserImage(user, file, modelMap)) {
             return "admin/addUser";

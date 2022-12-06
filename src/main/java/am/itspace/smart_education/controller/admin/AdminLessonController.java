@@ -21,6 +21,7 @@ import java.util.Optional;
 @RequestMapping("/admin/lesson")
 @RequiredArgsConstructor
 public class AdminLessonController {
+
     private final LessonService lessonService;
     private final LessonMapper mapper;
 
@@ -38,21 +39,9 @@ public class AdminLessonController {
 
 
     @PostMapping("/add")
-    public String addLesson(@ModelAttribute Lesson lesson,
+    public String addLesson(@ModelAttribute CreateLessonDto lessonDto,
                             @RequestParam("profPic") MultipartFile file) throws IOException {
-
-        lessonService.save(lesson, file);
-        return "redirect:/admin/user";
-    }
-
-    @GetMapping(value = "/getImage", produces = MediaType.IMAGE_JPEG_VALUE)
-    public @ResponseBody byte[] getImage(@RequestParam("fileName") String fileName) throws IOException {
-        return lessonService.getLessonImage(fileName);
-
-    }
-
-    public String addLesson(@ModelAttribute CreateLessonDto lessonDto) {
-        lessonService.save(mapper.map(lessonDto));
+        lessonService.save(mapper.map(lessonDto), file);
         return "redirect:/admin/lesson";
     }
 
@@ -67,18 +56,21 @@ public class AdminLessonController {
     public String update(ModelMap modelMap,
                          @PathVariable("id") int id) {
         Optional<Lesson> byId = lessonService.findById(id);
-        if (byId.isEmpty()) {
-            return "redirect:/admin/lesson";
-        }
-        modelMap.addAttribute("lessons", byId.get());
+        byId.ifPresent(lesson -> modelMap.addAttribute("lessons", lesson));
         return "admin/editLesson";
     }
-
 
     @PostMapping("/update")
     public String update(@ModelAttribute RequestAdminLessonDto lessonDto) {
         lessonService.updateLesson(mapper.map(lessonDto));
         return "redirect:/admin/lesson";
     }
+
+    @GetMapping(value = "/getImage", produces = MediaType.IMAGE_JPEG_VALUE)
+    public @ResponseBody byte[] getImage(@RequestParam("fileName") String fileName) throws IOException {
+        return lessonService.getLessonImage(fileName);
+
+    }
+
 
 }

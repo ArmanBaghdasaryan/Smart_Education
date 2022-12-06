@@ -2,6 +2,7 @@ package am.itspace.smart_education.controller.web;
 
 import am.itspace.smart_education.common.entity.Question;
 import am.itspace.smart_education.common.service.QuestionsService;
+import am.itspace.smart_education.dto.QuestionDto;
 import am.itspace.smart_education.security.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,6 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@Slf4j
 public class QuestionController {
 
 
@@ -33,9 +33,9 @@ public class QuestionController {
 
     @PostMapping("/question")
     @ResponseBody
-    public ResponseEntity<Question> saveQuestion(@RequestBody Question question,
+    public ResponseEntity<Question> saveQuestion(@RequestBody QuestionDto questionDto,
                                                  @AuthenticationPrincipal CurrentUser currentUser) {
-        questionsService.saveQuestion(question, currentUser);
+        questionsService.saveQuestion(questionDto, currentUser);
         return ResponseEntity.ok().build();
 
     }

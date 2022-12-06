@@ -98,5 +98,13 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet id="initDb2" author="aBaghdasaryan">
+        <addColumn tableName="user">
+            <column name="verify_token" type="varchar(255)">
+            </column>
+            <column name="is_enable" type="int(1)" defaultValue="0">
+            </column>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>

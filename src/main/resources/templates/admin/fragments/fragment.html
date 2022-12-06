@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="/vendors/jquery-ui/jquery-ui.theme.min.css">
     <link rel="stylesheet" href="/vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="/vendors/flags-icon/css/flag-icon.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css">
     <!-- END Template CSS-->
 
     <!-- START: Page CSS-->
@@ -40,7 +41,7 @@
         <div class="site-width">
             <nav class="navbar navbar-expand-lg  p-0">
                 <div class="navbar-header  h-100 h4 mb-0 align-self-center logo-bar text-left">
-                    <a class="horizontal-logo text-left">
+                    <a href="/admin/admin" class="horizontal-logo text-left">
                         <svg height="20pt" preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 512" width="20pt"
                              xmlns="http://www.w3.org/2000/svg">
                             <g transform="matrix(.1 0 0 -.1 0 512)" fill="#1e3d73">
@@ -48,58 +49,30 @@
                                 <path d="m2833 3300c-82-12-190-48-282-95-73-36-637-358-648-369-3-3 580-1022 592-1034 5-5 596 338 673 391 100 69 220 197 260 280 82 167 76 324-19 507-95 184-233 291-411 320-70 11-89 11-165 0z"/>
                             </g>
                         </svg>
-                        <span class="h4 font-weight-bold align-self-center mb-0 ml-auto">PICK</span>
+                        <span class="h4 font-weight-bold align-self-center mb-0 ml-auto">ADMIN</span>
                     </a>
                 </div>
-                <div class="navbar-header h4 mb-0 text-center h-100 collapse-menu-bar">
-                    <a href="index.html#" class="sidebarCollapse" id="collapse"><i class="icon-menu"></i></a>
-                </div>
 
-                <form class="float-left d-none d-lg-block search-form">
-                    <div class="form-group mb-0 position-relative">
-                        <input type="text" class="form-control border-0 rounded bg-search pl-5"
-                               placeholder="Search anything...">
-                        <div class="btn-search position-absolute top-0">
-                            <a href="index.html#"><i class="h6 icon-magnifier"></i></a>
+                <th:block th:if="${user != null}">
+                    <a href="/#" class="nav-link py-0" data-toggle="dropdown" aria-expanded="false">
+                        <div class="media">
+                            <img th:if="${user.picUrl != null}"
+                                 th:src="@{/users/getImage(fileName=${user.picUrl})}" alt=""
+                                 class="d-flex img-fluid rounded-circle"
+                                 width="29">
+                            <img th:if="${user.picUrl == null}" src="/images/author.jpg" alt=""
+                                 class="d-flex img-fluid rounded-circle"
+                                 width="29">
+
                         </div>
-                        <a href="index.html#" class="position-absolute close-button mobilesearch d-lg-none"
-                           data-toggle="dropdown" aria-expanded="false"><i class="icon-close h5"></i>
-                        </a>
+                    </a>
 
+                    <div class="dropdown-menu border dropdown-menu-right p-0">
+                        <a href="/logout" class="dropdown-item px-2 text-danger align-self-center d-flex">
+                            <span class="icon-logout mr-2 h6  mb-0"></span> Sign Out</a>
                     </div>
-                </form>
-                <div class="navbar-right ml-auto h-100">
-                    <ul class="ml-auto p-0 m-0 list-unstyled d-flex top-icon h-100">
-                        <li class="d-inline-block align-self-center  d-block d-lg-none">
-                            <a href="index.html#" class="nav-link mobilesearch" data-toggle="dropdown"
-                               aria-expanded="false"><i class="icon-magnifier h4"></i>
-                            </a>
-                        </li>
-                        <li class="dropdown user-profile align-self-center d-inline-block">
-                            <th:block th:if="${user != null}">
-                                <a href="/#" class="nav-link py-0" data-toggle="dropdown" aria-expanded="false">
-                                    <div class="media">
-                                        <img th:if="${user.picUrl != null}"
-                                             th:src="@{/users/getImage(fileName=${user.picUrl})}" alt=""
-                                             class="d-flex img-fluid rounded-circle"
-                                             width="29">
-                                        <img th:if="${user.picUrl == null}" src="/images/author.jpg" alt=""
-                                             class="d-flex img-fluid rounded-circle"
-                                             width="29">
 
-                                    </div>
-                                </a>
-
-                                <div class="dropdown-menu border dropdown-menu-right p-0">
-                                    <a href="/logout" class="dropdown-item px-2 text-danger align-self-center d-flex">
-                                        <span class="icon-logout mr-2 h6  mb-0"></span> Sign Out</a>
-                                </div>
-
-                            </th:block>
-                        </li>
-
-                    </ul>
-                </div>
+                </th:block>
             </nav>
         </div>
     </div>
@@ -135,13 +108,6 @@
                         <li class=""><a href="/admin/answers"><i class="icon-rocket"></i>Show all Answers</a></li>
                     </ul>
                 </li>
-                <li class="dropdown"><a href="/#"><i class="icon-home mr-1"></i>Comments</a>
-                    <ul>
-                        <li class=""><a href="/admin/comments"><i class="icon-rocket"></i>Show all Comments</a></li>
-                        <li><a href="/admin/comments/add"><i class="icon-layers"></i>Add new Comment</a></li>
-                    </ul>
-                </li>
-
             </ul>
             <!-- END: Menu-->
             <ol class="breadcrumb bg-transparent align-self-center m-0 p-0 ml-auto">

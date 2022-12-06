@@ -28,64 +28,47 @@
 
 <!-- START: Main Content-->
 <main>
-    <div class="row row-eq-height">
-        <div class="col-12">
-            <div class="card border h-100 contact-list-section">
-                <div class="card-header border-bottom p-1 d-flex">
-                    <a href="#" class="d-inline-block d-lg-none flip-menu-toggle"><i class="icon-menu"></i></a>
-                    <input type="text" class="form-control border-0 p-2 w-100 h-100 contact-search"
-                           placeholder="Search ...">
-                    <a href="#" class="list-style search-bar-menu border-0 active"><i class="icon-list"></i></a>
-                    <a href="#" class="grid-style search-bar-menu"><i class="icon-grid"></i></a>
-                </div>
-                <div class="card-body p-0">
 
-                    <div class="contacts list">
-                        <div th:each="user:${users}" class="contact family-contact">
-                            <div class="contact-content">
-                                <div class="contact-profile">
-                                    <img th:if="${user.picture != null}"
-                                         th:src="@{/admin/user/getImage(fileName=${user.picture})}" alt="avatar"
-                                         class="user-image img-fluid">
-                                    <img th:if="${user.picture == null}" src="/images/about_03.jpg" alt="avatar"
-                                         class="user-image img-fluid">
-                                    <div class="contact-info">
-                                        <p class="contact-name mb-0" th:text="${user.name + ' ' + user.surname}"></p>
-                                        <p class="contact-position mb-0 small font-weight-bold text-muted"
-                                           th:text="${user.getRole().name()}"></p>
-                                    </div>
-                                </div>
-                                <div class="contact-email">
-                                    <p class="mb-0 small">Email: </p>
-                                    <p class="user-email" th:text="${user.getEmail()}"></p>
-                                </div>
-                                <div class="contact-location">
-                                    <p class="mb-0 small">Bio: </p>
-                                    <p class="user-location" th:text="${user.bio}"></p>
-                                </div>
-                                <div class="contact-phone">
-                                    <p class="mb-0 small">Phone: </p>
-                                    <p class="user-phone" th:text="${user.phoneNumber}"></p>
-                                </div>
-                                <div class="line-h-1 h5">
-                                    <a class="text-success edit-contact"
-                                       th:href="@{'/admin/user/update/' + ${user.id}}">
-                                        <i class="icon-pencil" title="Edit"></i> </a>
-                                    <a class="text-danger delete-contact"
-                                       th:href="@{'/admin/user/delete/' + ${user.id}}"><i
-                                            class="icon-trash" title="Delete"></i></a>
-                                </div>
-                            </div>
-                        </div>
+    <div class="contacts list">
+        <div th:each="user:${users}" class="contact family-contact">
+            <div class="contact-content">
+                <div class="contact-profile">
+                    <img th:if="${user.picture != null}"
+                         th:src="@{/admin/user/getImage(fileName=${user.picture})}" alt="avatar"
+                         class="user-image img-fluid">
+                    <img th:if="${user.picture == null}" src="/images/about_03.jpg" alt="avatar"
+                         class="user-image img-fluid">
+                    <div class="contact-info">
+                        <p class="contact-name mb-0" th:text="${user.name + ' ' + user.surname}"></p>
+                        <p class="contact-position mb-0 small font-weight-bold text-muted"
+                           th:text="${user.getRole().name()}"></p>
                     </div>
-
-
+                </div>
+                <div class="contact-email">
+                    <p class="mb-0 small">Email: </p>
+                    <p class="user-email" th:text="${user.getEmail()}"></p>
+                </div>
+                <div class="contact-location">
+                    <p class="mb-0 small">Bio: </p>
+                    <p class="user-location" th:text="${user.bio}"></p>
+                </div>
+                <div class="contact-phone">
+                    <p class="mb-0 small">Phone: </p>
+                    <p class="user-phone" th:text="${user.phoneNumber}"></p>
+                </div>
+                <div class="line-h-1 h5">
+                    <a class="text-success edit-contact"
+                       th:href="@{'/admin/user/update/' + ${user.id}}">
+                        <i class="icon-pencil" title="Edit"></i> </a>
+                    <a class="text-danger delete-contact"
+                       th:href="@{'/admin/user/delete/' + ${user.id}}"><i
+                            class="icon-trash" title="Delete"></i></a>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- END: Breadcrumbs-->
-    </div>
 </main><!-- END: Content-->
 <!-- START: Footer-->
 <footer class="site-footer">
