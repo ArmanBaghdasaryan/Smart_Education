@@ -10,9 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CreateQuestionDto {
+public class QuestionDto {
 
     private String description;
-    private User user;
 
 }

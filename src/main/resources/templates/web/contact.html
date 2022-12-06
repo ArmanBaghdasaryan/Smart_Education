@@ -70,6 +70,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbars-host">
                 <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item" th:if="${currentUser != null}">
+                        <a class="nav-link" href="/my_profile"
+                           th:text="${currentUser!= null?'My Profile':'Home'}">
+                        </a></li>
                     <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="/compiler">Compiler</a></li>
                     <li class="nav-item"><a class="nav-link" href="/about_us">About Us</a></li>
@@ -77,12 +82,9 @@
                     <li class="nav-item"><a class="nav-link" href="/teachers">Teachers</a></li>
                     <li class="nav-item"><a class="nav-link" href="/pricing">Pricing</a></li>
                     <li class="nav-item active"><a class="nav-link" href="/contact">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/answer_save">Discussion</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/question">Discussion</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a class="hover-btn-new log" href="/login" data-toggle="modal" data-target="#login"><span>Book Now</span></a>
-                    </li>
-                </ul>
+                <th:block th:insert="/web/fragments/fragment::loginRegister"></th:block>
             </div>
         </div>
     </nav>
@@ -174,65 +176,7 @@
     </div><!-- end container -->
 </div><!-- end section -->
 
-<footer class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-xs-12">
-                <div class="widget clearfix">
-                    <div class="widget-title">
-                        <h3>About US</h3>
-                    </div>
-                    <p> Integer rutrum ligula eu dignissim laoreet. Pellentesque venenatis nibh sed tellus faucibus
-                        bibendum. Sed fermentum est vitae rhoncus molestie. Cum sociis natoque penatibus et magnis dis
-                        montes.</p>
-                    <div class="footer-right">
-                        <ul class="footer-links-soi">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-github"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                            <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                        </ul><!-- end links -->
-                    </div>
-                </div><!-- end clearfix -->
-            </div><!-- end col -->
-
-            <div class="col-lg-4 col-md-4 col-xs-12">
-                <div class="widget clearfix">
-                    <div class="widget-title">
-                        <h3>Information Link</h3>
-                    </div>
-                    <ul class="footer-links">
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/compiler">Compiler</a></li>
-                        <li><a href="/about_us">About</a></li>
-                        <li><a href="/course">Course</a></li>
-                        <li><a href="/teachers">Teacher</a></li>
-                        <li><a href="/pricing">Pricing</a></li>
-                        <li><a href="/contact">Contact</a></li>
-                        <li><a href="/answer_save">Discussion</a></li>
-                    </ul><!-- end links -->
-                </div><!-- end clearfix -->
-            </div><!-- end col -->
-
-            <div class="col-lg-4 col-md-4 col-xs-12">
-                <div class="widget clearfix">
-                    <div class="widget-title">
-                        <h3>Contact Details</h3>
-                    </div>
-
-                    <ul class="footer-links">
-                        <li><a href="mailto:#">info@yoursite.com</a></li>
-                        <li><a href="#">www.yoursite.com</a></li>
-                        <li>PO Box 16122 Collins Street West Victoria 8007 Australia</li>
-                        <li>+61 3 8376 6284</li>
-                    </ul><!-- end links -->
-                </div><!-- end clearfix -->
-            </div><!-- end col -->
-
-        </div><!-- end row -->
-    </div><!-- end container -->
-</footer><!-- end footer -->
+<th:block th:insert="/web/fragments/fragment::FooterImport"></th:block>
 
 <div class="copyrights">
     <div class="container">

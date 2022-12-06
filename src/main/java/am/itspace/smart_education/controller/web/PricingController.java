@@ -5,8 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class PricingController {
+
     @GetMapping("/pricing")
-    public String pricingPage(){
+    public String pricingPage() {
         return "web/pricing";
     }
 }

@@ -14,8 +14,8 @@ import java.util.Set;
 @Controller
 @RequiredArgsConstructor
 public class MyProfileController {
-    private final LessonService lessonService;
 
+    private final LessonService lessonService;
 
     @GetMapping("/my_profile")
     public String mySubscribe(ModelMap modelMap, @AuthenticationPrincipal CurrentUser currentUser) {

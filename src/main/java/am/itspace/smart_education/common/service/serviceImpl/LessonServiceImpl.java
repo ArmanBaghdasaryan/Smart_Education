@@ -28,7 +28,7 @@ public class LessonServiceImpl implements LessonService {
     private final UserDetailServiceImpl userDetailService;
     private final LessonRepository lessonRepository;
     private final UserRepository userRepository;
-    @Value("C://Users//user//IdeaProjects//Smart_Education//image")
+    @Value("${smart.education.images.folder}")
     private String folder;
 
     public Optional<Lesson> findById(int id) {

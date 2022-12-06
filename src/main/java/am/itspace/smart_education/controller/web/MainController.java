@@ -3,8 +3,8 @@ package am.itspace.smart_education.controller.web;
 import am.itspace.smart_education.common.entity.Lesson;
 import am.itspace.smart_education.common.entity.Role;
 import am.itspace.smart_education.common.entity.User;
+import am.itspace.smart_education.common.service.LessonService;
 import am.itspace.smart_education.common.service.UserService;
-import am.itspace.smart_education.common.service.serviceImpl.LessonServiceImpl;
 import am.itspace.smart_education.security.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,7 +17,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class MainController {
-    private final LessonServiceImpl lessonService;
+    private final LessonService lessonService;
     private final UserService userService;
 
 

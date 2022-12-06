@@ -4,22 +4,18 @@ import am.itspace.smart_education.common.entity.Answer;
 import am.itspace.smart_education.common.entity.Question;
 import am.itspace.smart_education.common.service.AnswerService;
 import am.itspace.smart_education.common.service.QuestionsService;
+import am.itspace.smart_education.common.service.AnswerService;
 import am.itspace.smart_education.dto.AnswerDto;
 import am.itspace.smart_education.security.CurrentUser;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-
 @Controller
 @RequiredArgsConstructor
-@Slf4j
 public class AnswerController {
 
     private final AnswerService answerService;
@@ -34,10 +30,12 @@ public class AnswerController {
         return "web/answer";
     }
 
-    @PostMapping("/answer_save")
+    @PostMapping("/single_question")
     @ResponseBody
     public ResponseEntity<Answer> chatSave(@RequestBody AnswerDto answerDto,
                                            @AuthenticationPrincipal CurrentUser currentUser) {
+    public ResponseEntity<Answer> answerSave(@RequestBody AnswerDto answerDto,
+                                             @AuthenticationPrincipal CurrentUser currentUser) {
         answerService.save(answerDto, currentUser);
         return ResponseEntity.ok().build();
     }
@@ -50,7 +48,9 @@ public class AnswerController {
             modelMap.addAttribute("question", question);
         });
 
+    @GetMapping("/single_question/{id}")
+    public String answerToQuestion(@PathVariable("id") int id, ModelMap modelMap) {
+        answerService.answerToQuestion(id, modelMap);
         return "web/single_question";
     }
-
 }

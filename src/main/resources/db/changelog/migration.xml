@@ -76,7 +76,6 @@
             <column name="question_id" type="BIGINT"/>
             <column name="user_id" type="BIGINT"/>
 
-
         </createTable>
         <addForeignKeyConstraint baseColumnNames="question_id"
                                  baseTableName="answers"
@@ -90,8 +89,6 @@
                                  referencedColumnNames="id"
                                  referencedTableName="user"/>
 
-
-
         <createTable tableName="subscription">
             <column name="user_id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -100,6 +97,14 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+    </changeSet>
+    <changeSet id="initDb2" author="aBaghdasaryan">
+        <addColumn tableName="user">
+            <column name="verify_token" type="varchar(255)">
+            </column>
+            <column name="is_enable" type="int(1)" defaultValue="0">
+            </column>
+        </addColumn>
     </changeSet>
 
 </databaseChangeLog>

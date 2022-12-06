@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-@Service
 public interface LessonService {
 
 
@@ -19,7 +18,6 @@ public interface LessonService {
     List<Lesson> findAll();
 
     void save(Lesson lesson, MultipartFile multipartFile) throws IOException;
-
 
     void deleteById(int id);
 
