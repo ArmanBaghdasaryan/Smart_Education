@@ -23,4 +23,5 @@ public class CreateLessonDto {
     private double totalHours;
     private boolean isOnline;
     private Set<User> userSet;
+    private String picture;
 }

@@ -13,7 +13,6 @@ import am.itspace.smart_education.mapper.AnswerMapper;
 import am.itspace.smart_education.security.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
@@ -44,7 +43,7 @@ public class AnswerServiceImpl implements AnswerService {
             answer.setUser(user);
             log.info("Question with id was found: {}", answer.getId());
             questionById.ifPresent(answer::setQuestion);
-            return ResponseEntity.ok(answerRepository.save(answer));
+            return answerRepository.save(answer);
         });
 
     }

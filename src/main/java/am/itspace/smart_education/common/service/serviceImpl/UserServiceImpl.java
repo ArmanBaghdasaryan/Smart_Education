@@ -3,29 +3,34 @@ package am.itspace.smart_education.common.service.serviceImpl;
 import am.itspace.smart_education.common.entity.Role;
 import am.itspace.smart_education.common.entity.User;
 import am.itspace.smart_education.common.repository.UserRepository;
+import am.itspace.smart_education.common.service.MailService;
 import am.itspace.smart_education.common.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.MessagingException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-
+    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final MailService mailService;
     @Value("${smart.education.images.folder}")
     private String folderPath;
 
@@ -33,14 +38,22 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
-    public void save(User user, MultipartFile file) throws IOException {
+    public void save(User user, MultipartFile file) throws IOException, MessagingException {
         if (!file.isEmpty() && file.getSize() > 0) {
             checkedImage(user, file);
         }
         if (user.getRole() == null) {
-            user.setRole(Role.ADMIN);
+            user.setRole(Role.USER);
         }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setEnable(false);
+        user.setVerifyToken(UUID.randomUUID().toString());
         userRepository.save(user);
+        mailService.sendHtmlEmail(user.getEmail(), "Please verify your email",
+                "Hi " + user.getName() + "\n" +
+                        "Please verify your account by clicking on this link " +
+                        "<a href=\"http://localhost:8080/user/verify?email=" + user.getEmail() + "&token=" + user.getVerifyToken() + "\">Activate</a>"
+        );
     }
 
     public void deleteById(int id) {
@@ -50,9 +63,9 @@ public class UserServiceImpl implements UserService {
     public User findById(int id) {
         Optional<User> byId = userRepository.findById(id);
         if (byId.isEmpty()) {
+            throw new RuntimeException("User with id" + id + " does not exists");
         }
         return byId.get();
-
     }
 
     public void updateUser(User user, MultipartFile file) throws IOException {
@@ -72,15 +85,6 @@ public class UserServiceImpl implements UserService {
     public byte[] getUserImage(String fileName) throws IOException {
         InputStream inputStream = new FileInputStream(folderPath + File.separator + fileName);
         return IOUtils.toByteArray(inputStream);
-    }
-
-    public Optional<User> findByEmail(String email) {
-
-        Optional<User> byEmail = userRepository.findByEmail(email);
-        if (byEmail.isEmpty()) {
-            throw new RuntimeException("Email with " + email + " email does not exists");
-        }
-        return byEmail;
     }
 
     public void checkedImage(User user, MultipartFile file) throws IOException {
@@ -110,4 +114,20 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
+
+    public void verifyUser(String email, String token) throws Exception {
+        Optional<User> userOptional = userRepository.findByEmailAndVerifyToken(email, token);
+
+        if (userOptional.isEmpty()) {
+            throw new Exception("User Does not exists with email and token");
+        }
+        User user = userOptional.get();
+        if (user.isEnable()) {
+            throw new Exception("User already enabled");
+        }
+        user.setEnable(true);
+        user.setVerifyToken(null);
+        userRepository.save(user);
+    }
+
 }

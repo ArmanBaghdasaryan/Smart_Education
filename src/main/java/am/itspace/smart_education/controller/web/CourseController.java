@@ -16,7 +16,9 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class CourseController {
-private final LessonService lessonService;
+
+    private final LessonService lessonService;
+
     @GetMapping("/course")
     public String bookSinglePage(ModelMap modelMap) {
         List<Lesson> allLesson = lessonService.findAll();
@@ -24,6 +26,7 @@ private final LessonService lessonService;
         return "web/course";
 
     }
+
     @GetMapping(value = "/getPic", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] getImage(@RequestParam("fileName") String fileName) throws IOException {
         return lessonService.getLessonImage(fileName);
