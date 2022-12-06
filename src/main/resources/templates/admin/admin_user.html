@@ -68,6 +68,14 @@
         </div>
     </div>
 
+    <div th:if="${users.totalPages > 0}" class="pagination"
+         th:each="pageNumber : ${pageNumbers}">
+        <a th:href="@{/admin/user(size=${users.size}, page=${pageNumber})}"
+           th:text="${pageNumber}"
+           th:class="${pageNumber==users.number + 1} ? active"></a>
+
+    </div>
+
     <!-- END: Breadcrumbs-->
 </main><!-- END: Content-->
 <!-- START: Footer-->
