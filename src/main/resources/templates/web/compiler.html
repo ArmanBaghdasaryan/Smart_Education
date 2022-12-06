@@ -7,6 +7,8 @@
 <select class="" name="" id="select-lang">
     <option th:selected="${programLang == 'java'}" value="java">java</option>
     <option th:selected="${programLang=='php'}" value="php">PHP</option>
+    <option th:selected="${programLang=='c'}" value="c">C</option>
+    <option th:selected="${programLang=='cpp'}" value="cpp">C++</option>
 
 </select>
 <div id="content">
@@ -15,16 +17,11 @@
          th:attr="data-language=${programLang == null ? 'java':programLang}"
          data-version-index="4" data-libs="org.apache.commons:commons-lang3:3.4"
          style="white-space: pre;"
-         th:text="${programLang=='java' || programLang == null ?
-         'public class SmartEducation {  &#10; public static void main(String[] args) {  &#10;  System.out.println(&quot;Java &quot;);  &#10;}  &#10;}'
-    :'<?php &#10; ECHO &quot;Hello World!&quot;; &#10;?>'}">
+         th:text="${programLang=='java' ? 'public class SmartEducation {  &#10; public static void main(String[] args) {  &#10;  System.out.println(&quot;Java &quot;);  &#10;}  &#10;}'
+    : programLang=='php' ? '<?php &#10; ECHO &quot;Hello World!&quot;; &#10;?>'
+    : programLang=='c' ? '#include <stdio.h>&#10; int main() {&#10; printf(&quot;Hello World!&quot);&#10; return 0;}'
+    : '#include <iostream> &#10;using namespace std;&#10;int main() { &#10; cout << &quot;Hello World!&quot;; &#10; return 0; }'}">
 
-
-        public class SmartEducation {
-        public static void main(String[] args) {
-        System.out.println("Java");
-        }
-        }
     </div>
 
 </div>

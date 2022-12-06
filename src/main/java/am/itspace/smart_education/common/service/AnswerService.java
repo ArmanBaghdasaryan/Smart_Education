@@ -16,8 +16,6 @@ public interface AnswerService {
 
     void save(AnswerDto answerDto,CurrentUser currentUser);
 
-    void save(AnswerDto answerDto, CurrentUser currentUser);
-
     void deleteById(int id);
 
     Optional<Answer> findById(int id);
