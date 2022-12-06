@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.List;
@@ -31,10 +32,8 @@ public interface UserService {
 
     List<User> findByRole(Role role);
 
-    boolean checkUserEmailAndUserImage(@ModelAttribute User user,
-                                       @RequestParam("profPic") MultipartFile file,
-                                       ModelMap modelMap);
-}
+    boolean checkUserEmailAndUserImage(User user, MultipartFile file, ModelMap modelMap);
+
     void verifyUser(String email, String token) throws Exception;
 
     Page<User> findUsersWithPage(Pageable pageable);
