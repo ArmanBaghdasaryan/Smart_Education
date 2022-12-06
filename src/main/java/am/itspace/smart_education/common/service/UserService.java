@@ -2,6 +2,8 @@ package am.itspace.smart_education.common.service;
 
 import am.itspace.smart_education.common.entity.Role;
 import am.itspace.smart_education.common.entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,4 +36,7 @@ public interface UserService {
                                        ModelMap modelMap);
 
     void verifyUser(String email, String token) throws Exception;
+
+    Page<User> findUsersWithPage(Pageable pageable);
+
 }
