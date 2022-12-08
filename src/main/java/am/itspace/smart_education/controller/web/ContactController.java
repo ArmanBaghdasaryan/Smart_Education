@@ -28,7 +28,7 @@ public class ContactController {
     @PostMapping("/contact/email")
     public String sendEmailToAdmin(EmailDetail emailDetail) {
         List<User> admins = userService.findByRole(Role.ADMIN);
-        mailService.sendMail(emailDetail,admins);
+        mailService.sendMail(emailDetail, admins);
         return "web/contact";
     }
 
