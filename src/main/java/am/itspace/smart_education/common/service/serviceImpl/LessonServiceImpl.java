@@ -101,6 +101,9 @@ public class LessonServiceImpl implements LessonService {
         return byId.map(User::getLessons)
                 .orElse(Set.of());
     }
+    public List<Lesson> findLast3Lessons(){
+        return lessonRepository.findTop3ByOrderByIdAsc();
+    }
 }
 
 

@@ -33,4 +33,6 @@ public interface LessonService {
     Set<Lesson> findAllByUser(CurrentUser currentUser);
 
     void deleteSubscribe(int lessonId, int userId);
+
+    List<Lesson> findLast3Lessons();
 }

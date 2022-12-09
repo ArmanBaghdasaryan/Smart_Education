@@ -1,50 +1,49 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
 
-<!-- Basic -->
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<!-- Mobile Metas -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Site Metas -->
-<title>SmartEDU - Education Responsive HTML5 Template</title>
-<meta name="keywords" content="">
-<meta name="description" content="">
-<meta name="author" content="">
+    <!-- Site Metas -->
+    <title>SmartEDU - Education Responsive HTML5 Template</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<!-- Site Icons -->
-<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
-<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="/css/bootstrap.min.css">
-<!-- Site CSS -->
-<link rel="stylesheet" href="/style.css">
-<!-- ALL VERSION CSS -->
-<link rel="stylesheet" href="/css/versions.css">
-<!-- Responsive CSS -->
-<link rel="stylesheet" href="/css/responsive.css">
-<!-- Custom CSS -->
-<link rel="stylesheet" href="/css/custom.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="/style.css">
+    <!-- ALL VERSION CSS -->
+    <link rel="stylesheet" href="/css/versions.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="/css/responsive.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/custom.css">
 
-<!-- Modernizer for Portfolio -->
-<script src="/js/modernizer.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Modernizer for Portfolio -->
+    <script src="/js/modernizer.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-<!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
 </head>
 <body class="host_version">
 
 <!-- Modal -->
-<th:block th:insert="/web/fragments/fragment::loginImport"></th:block>
 <!-- LOADER -->
 <div id="preloader">
     <div class="loader-container">
@@ -68,7 +67,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-        </div>
+            <div class="collapse navbar-collapse" id="navbars-host">
+            </div>
         </div>
     </nav>
 </header>
@@ -76,51 +76,47 @@
 
 <div class="all-title-box">
     <div class="container text-center">
+        <h1>My Profile</h1>
     </div>
 </div>
 
-<div id="overviews" class="section lb">
+<div id="pricing-box" class="section wb">
     <div class="container">
-        <div class="section-title row text-center">
-            <div class="col-md-8 offset-md-2">
-                <h3>MY PROFILE</h3>
+        <div class="row">
+
+            <div class="col-md-4 col-sm-6" th:each="subs: ${mySub}">
+                <div class="pricingTable pink">
+                    <div class="pricingTable-header">
+                            <span class="heading">
+                                <h3 th:text="${subs.title}"></h3>
+                            </span>
+                    </div>
+
+                    <div class="pricingContent">
+                        <i class="fa fa-briefcase"></i>
+                        <ul>
+                            <li th:text="${subs.price}"></li>
+                            <li th:text="${subs.duration}"></li>
+                            <li th:text="${subs.totalHours}"></li>
+                            <li th:text="${subs.isOnline()}"></li>
+
+                        </ul>
+                    </div><!-- /  CONTENT BOX-->
+
+                    <div class="pricing-table-sign-up">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a class="hover-btn-new log orange" th:href="@{'/deleteSubscribe/' + ${subs.id}}"
+                            ><span>Հրաժարվել</span></a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </div><!-- end title -->
 
-        <div class="row align-items-center">
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                <div class="message-box" th:border="1px">
-                    <table border="2px">
-                        <tr>
-                            <th>course title</th>
-                            <th>course price</th>
-                            <th>course duration</th>
-                            <th>course total_house</th>
-                            <th>course is online</th>
-                            <th>Delete</th>
-                        </tr>
 
-                    <tr th:each="subs: ${mySub}" style="color: orange">
-                        <td th:text="${subs.title}"></td>
-                        <td th:text="${subs.price}"></td>
-                        <td th:text="${subs.duration}"></td>
-                        <td th:text="${subs.totalHours}"></td>
-                        <td th:text="${subs.isOnline}"></td>
-                        <td><a th:href="@{'/deleteSubscribe/' + ${subs.id}}" class="hover-btn-new orange"><span>Delete</span></a>
-                        </td>
-                    </tr>
-                    </table>
-                </div><!-- end messagebox -->
-            </div><!-- end col -->
-
-            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                <div class="post-media wow fadeIn" th:each="coursee:${coursePage}">
-                    <img th:src="@{/getPic(fileName=${coursee.picture})}" alt="" class="img-fluid img-rounded">
-
-                </div><!-- end media -->
-            </div><!-- end col -->
         </div>
-    </div><!-- end container -->
+    </div>
 </div><!-- end section -->
 
 
@@ -130,8 +126,8 @@
     <div class="container">
         <div class="footer-distributed">
             <div class="footer-center">
-                <p class="footer-company-name">All Rights Reserved. &copy; 2018 <a href="/index">SmartEDU</a> Design By
-                    : <a href="https://html.design/">html design</a></p>
+                <p class="footer-company-name">All Rights Reserved. &copy; 2018 <a href="#">SmartEDU</a> Design By : <a
+                        href="https://html.design/">html design</a></p>
             </div>
         </div>
     </div><!-- end container -->

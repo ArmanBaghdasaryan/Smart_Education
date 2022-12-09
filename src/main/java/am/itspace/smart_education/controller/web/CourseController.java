@@ -32,4 +32,5 @@ public class CourseController {
     public @ResponseBody byte[] getImage(@RequestParam("fileName") String fileName) throws IOException {
         return lessonService.getLessonImage(fileName);
     }
+
 }
