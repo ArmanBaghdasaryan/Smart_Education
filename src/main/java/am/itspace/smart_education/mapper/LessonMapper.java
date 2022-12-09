@@ -8,7 +8,6 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface LessonMapper {
 
-
     Lesson map(CreateLessonDto lessonDto);
 
     Lesson map(RequestAdminLessonDto requestAdminLessonDto);

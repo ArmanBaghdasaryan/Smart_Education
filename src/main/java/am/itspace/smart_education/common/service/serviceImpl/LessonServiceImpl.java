@@ -6,7 +6,6 @@ import am.itspace.smart_education.common.repository.LessonRepository;
 import am.itspace.smart_education.common.repository.UserRepository;
 import am.itspace.smart_education.common.service.LessonService;
 import am.itspace.smart_education.security.CurrentUser;
-import am.itspace.smart_education.security.UserDetailServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,7 +24,6 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class LessonServiceImpl implements LessonService {
 
-    private final UserDetailServiceImpl userDetailService;
     private final LessonRepository lessonRepository;
     private final UserRepository userRepository;
     @Value("${smart.education.images.folder}")
@@ -63,6 +61,19 @@ public class LessonServiceImpl implements LessonService {
         });
     }
 
+    public void deleteSubscribe(int lessonId, int userId) {
+        Optional<Lesson> lessonById = lessonRepository.findById(lessonId);
+        Optional<User> userById = userRepository.findById(userId);
+        lessonById.ifPresent(l -> {
+            userById.ifPresent(u -> {
+                u.getLessons().remove(l);
+                userRepository.save(u);
+
+            });
+        });
+
+    }
+
     public void updateLesson(Lesson lesson) {
         lessonRepository.save(lesson);
     }
@@ -90,7 +101,9 @@ public class LessonServiceImpl implements LessonService {
         return byId.map(User::getLessons)
                 .orElse(Set.of());
     }
-
+    public List<Lesson> findLast3Lessons(){
+        return lessonRepository.findTop3ByOrderByIdAsc();
+    }
 }
 
 

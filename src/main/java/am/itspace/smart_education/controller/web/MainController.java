@@ -40,7 +40,7 @@ public class MainController {
 
     @GetMapping("/")
     public String home(ModelMap modelMap) {
-        List<Lesson> allLesson = lessonService.findAll();
+        List<Lesson> allLesson = lessonService.findLast3Lessons();
         List<User> allTeacher = userService.findByRole(Role.TEACHER);
         modelMap.addAttribute("courses", allLesson);
         modelMap.addAttribute("teachersHome", allTeacher);

@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -19,4 +20,11 @@ public class LessonSubscribeController {
         lessonService.subscribe(lessonId, user.getUser().getId());
         return "redirect:/";
     }
+
+    @GetMapping("/deleteSubscribe/{id}")
+    public String deleteSubscribe(@PathVariable("id") int id, @AuthenticationPrincipal CurrentUser currentUser) {
+        lessonService.deleteSubscribe(id, currentUser.getUser().getId());
+        return "web/myProfile";
+    }
+
 }

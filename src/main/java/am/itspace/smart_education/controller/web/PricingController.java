@@ -1,13 +1,23 @@
 package am.itspace.smart_education.controller.web;
 
+import am.itspace.smart_education.common.entity.Lesson;
+import am.itspace.smart_education.common.service.LessonService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller
-public class PricingController {
+import java.util.List;
 
+@Controller
+@RequiredArgsConstructor
+public class PricingController {
+private final LessonService lessonService;
     @GetMapping("/pricing")
-    public String pricingPage() {
+    public String pricingPage(ModelMap modelMap) {
+        List<Lesson> last3Lessons = lessonService.findLast3Lessons();
+        modelMap.addAttribute("lessonsP",last3Lessons);
         return "web/pricing";
     }
+
 }

@@ -2,7 +2,6 @@ package am.itspace.smart_education.common.service;
 
 import am.itspace.smart_education.common.entity.Lesson;
 import am.itspace.smart_education.security.CurrentUser;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -33,4 +32,7 @@ public interface LessonService {
 
     Set<Lesson> findAllByUser(CurrentUser currentUser);
 
+    void deleteSubscribe(int lessonId, int userId);
+
+    List<Lesson> findLast3Lessons();
 }
