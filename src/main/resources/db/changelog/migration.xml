@@ -81,7 +81,7 @@
                                  baseTableName="answers"
                                  constraintName="answers_fk_question_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="user"/>
+                                 referencedTableName="questions"/>
 
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="answers"

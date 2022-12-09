@@ -18,8 +18,6 @@ public interface QuestionsService {
 
     void updateQuestion(Question question);
 
-
-
-    void saveQuestion(QuestionDto questionDto, CurrentUser currentUser);
+    Question saveQuestion(QuestionDto questionDto, CurrentUser currentUser);
 
 }

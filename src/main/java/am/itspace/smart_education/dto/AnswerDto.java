@@ -13,6 +13,9 @@ public class AnswerDto {
 
     private String answerText;
     private int questionId;
+    private String qUsername;
+    private String aUsername;
+    private String description;
 
 }
 

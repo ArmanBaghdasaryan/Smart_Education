@@ -34,18 +34,18 @@ public class AnswerServiceImpl implements AnswerService {
         return answerRepository.findAll();
     }
 
-    public void save(AnswerDto answerDto, @AuthenticationPrincipal CurrentUser currentUser) {
+    public Answer save(AnswerDto answerDto, @AuthenticationPrincipal CurrentUser currentUser) {
         Optional<User> byId = userRepository.findById(currentUser.getUser().getId());
         Optional<Question> questionById = questionRepository.findById(answerDto.getQuestionId());
-        byId.map(user -> {
-            log.info("Answer with id was found: {}", user.getId());
-            Answer answer = answerMapper.map(answerDto);
-            answer.setUser(user);
-            log.info("Question with id was found: {}", answer.getId());
-            questionById.ifPresent(answer::setQuestion);
-            return answerRepository.save(answer);
-        });
-
+        return byId.map(user -> {
+                    log.info("User with id was found: {}", user.getId());
+                    Answer answer = answerMapper.map(answerDto);
+                    answer.setUser(user);
+                    log.info("Question with id was found: {}", questionById.get().getId());
+                    questionById.ifPresent(answer::setQuestion);
+                    return answerRepository.save(answer);
+                })
+                .orElse(null);
     }
 
     public void deleteById(int id) {

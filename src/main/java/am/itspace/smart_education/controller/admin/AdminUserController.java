@@ -45,7 +45,7 @@ public class AdminUserController {
         if (userService.checkUserEmailAndUserImage(user, file, modelMap)) {
             return "admin/addUser";
         }
-        user.setEnable(true);
+//        user.setEnable(true);
         userService.save(user, file);
         return "redirect:/admin/user";
     }

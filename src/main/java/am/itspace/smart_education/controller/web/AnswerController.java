@@ -19,10 +19,13 @@ public class AnswerController {
 
     @PostMapping("/single_question")
     @ResponseBody
-    public ResponseEntity<Answer> answerSave(@RequestBody AnswerDto answerDto,
+    public AnswerDto answerSave(@RequestBody AnswerDto answerDto,
                                              @AuthenticationPrincipal CurrentUser currentUser) {
-        answerService.save(answerDto, currentUser);
-        return ResponseEntity.ok().build();
+        Answer answer = answerService.save(answerDto, currentUser);
+        answerDto.setQUsername(answer.getQuestion().getUser().getName());
+        answerDto.setAUsername(answer.getUser().getName());
+        answerDto.setDescription(answer.getQuestion().getDescription());
+        return answerDto;
     }
 
     @GetMapping("/single_question/{id}")

@@ -76,23 +76,38 @@
             </div>
         </div>
     </nav>
-
 </header>
-<div th:each="question:${questions}" class="contact family-contact">
-    <div class="contact-content">
-        <div class="contact-info">
-            <strong class="contact-name mb-0"  th:text="${(question.user!=null ? question.user.name + ':':' ')}"></strong>
-            <a th:href="@{'/single_question/' + ${question.id}}" class="btn"><p style="color: red"
-                                                                                th:text="${question.description + ' ?'}"></p>
-            </a>
-            <input type="hidden" th:value="${question.getId()}" id="questionId">
+<div class="row">
+    <div class="col-4">
+
+        <form action="/question/search" id="search">
+            <input type="search" name="keyword" placeholder="Type something" value="">
+            <button type="submit" class="btn btn-light btn-radius btn-brd grd1">Search</button>
+        </form>
+    </div>
+    <div class="col-6">
+
+        <div>
+            <input type="text" id="description">
+            <button type="submit" class="btn btn-light btn-radius btn-brd grd1" id="send">Add New Question</button>
         </div>
     </div>
 </div>
-<div>
-    <input type="text" id="description">
-    <button type="submit" class="btn btn-light btn-radius btn-brd grd1" id="send">Add New Question</button>
+<div class="contact family-contact" id="question" style="height: 60%">
+    <div th:each="question:${questions}">
+        <div class="contact-content" style="border: solid 1px">
+            <div class="contact-info">
+                <strong class="contact-name mb-0"
+                        th:text="${(question.user!=null ? question.user.name + ':':' ')}"></strong>
+                <a th:href="@{'/single_question/' + ${question.id}}" class="btn">
+                    <span th:utext="${question.description}"></span>
+                </a>
+                <input type="hidden" th:value="${question.getId()}" id="questionId">
+            </div>
+        </div>
+    </div>
 </div>
+
 <th:block th:insert="/web/fragments/fragment::FooterImport"></th:block>
 
 <!-- End header -->
@@ -106,21 +121,28 @@
             type: 'POST',
             data: JSON.stringify({
                 description: description,
-           }),
+            }),
             url: '/question',
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-                console.log(data);
-                $("#send").text(data)
-                $('#question').append('<span>' + data.description + '</span>');
+                $('#description').val('');
+                $('#question').append(
+                    '<div class="contact-content">' +
+                    '            <div class="contact-info">' +
+                    '                <strong class="contact-name mb-0">' + data.user.name + ':</strong>' +
+                    '                <a href="/single_question/' + data.id + '" class="btn">' +
+                    '<span>' + data.description + '</span>' +
+                    '                </a>' +
+                    '                <input type="hidden" value="' + data.id + '" id="questionId">' +
+                    '            </div>' +
+                    '        </div>'
+                );
             },
             error: function (er) {
                 console.log(er);
-
             }
         });
     });
-
 
 </script>
 </body>

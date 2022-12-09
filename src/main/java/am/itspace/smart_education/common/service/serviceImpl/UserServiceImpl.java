@@ -52,7 +52,11 @@ public class UserServiceImpl implements UserService {
             user.setRole(Role.USER);
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setEnable(false);
+        if (user.getRole() == Role.USER) {
+            user.setEnable(false);
+        } else {
+            user.setEnable(true);
+        }
         user.setVerifyToken(UUID.randomUUID().toString());
         userRepository.save(user);
         mailService.sendHtmlEmail(user.getEmail(), "Please verify your email",

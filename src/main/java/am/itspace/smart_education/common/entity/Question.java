@@ -23,4 +23,13 @@ public class Question {
     private User user;
     @OneToMany(mappedBy = "question")
     private List<Answer> answers;
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", user=" + user +
+                '}';
+    }
 }
