@@ -33,7 +33,8 @@ public class AdminLessonController {
     }
 
     @GetMapping("/add")
-    public String addLesson() {
+    public String addLesson(ModelMap modelMap) {
+        modelMap.addAttribute("lesson", new CreateLessonDto());
         return "admin/addLesson";
     }
 

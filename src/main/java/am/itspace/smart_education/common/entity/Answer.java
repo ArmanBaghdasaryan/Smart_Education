@@ -23,4 +23,13 @@ public class Answer {
     @ManyToOne
     private User user;
 
+    @Override
+    public String toString() {
+        return "Answer{" +
+                "id=" + id +
+                ", answerText='" + answerText + '\'' +
+                ", question=" + question.getId() +
+                ", user=" + user +
+                '}';
+    }
 }

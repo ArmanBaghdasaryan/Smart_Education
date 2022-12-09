@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -33,9 +34,23 @@ public class QuestionController {
     @ResponseBody
     public ResponseEntity<Question> saveQuestion(@RequestBody QuestionDto questionDto,
                                                  @AuthenticationPrincipal CurrentUser currentUser) {
-        questionsService.saveQuestion(questionDto, currentUser);
-        return ResponseEntity.ok().build();
+        Question question = questionsService.saveQuestion(questionDto, currentUser);
+        return ResponseEntity.ok(question);
 
     }
+
+    @GetMapping("/question/search")
+    public String searchQuestion(@RequestParam String keyword, ModelMap modelMap) {
+        List<Question> searchQuestionsByKeyword = questionRepository.searchQuestions(keyword);
+
+        List<Question> questions = searchQuestionsByKeyword.stream().map(question -> {
+            question.setDescription(question.getDescription()
+                    .replaceAll(keyword, "<span style='color: yellow'>" + keyword + "</span>"));
+            return question;
+        }).collect(Collectors.toList());
+        modelMap.addAttribute("questions", questions);
+        return "web/question";
+    }
+
 
 }

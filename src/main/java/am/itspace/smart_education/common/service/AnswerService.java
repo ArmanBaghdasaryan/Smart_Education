@@ -14,7 +14,7 @@ public interface AnswerService {
 
     List<Answer> findAll();
 
-    void save(AnswerDto answerDto,CurrentUser currentUser);
+    Answer save(AnswerDto answerDto,CurrentUser currentUser);
 
     void deleteById(int id);
 

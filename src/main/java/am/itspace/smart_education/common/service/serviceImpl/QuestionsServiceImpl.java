@@ -44,13 +44,14 @@ public class QuestionsServiceImpl implements QuestionsService {
         questionRepository.save(question);
     }
 
-    public void saveQuestion(QuestionDto questionDto, @AuthenticationPrincipal CurrentUser currentUser) {
+    public Question saveQuestion(QuestionDto questionDto, @AuthenticationPrincipal CurrentUser currentUser) {
         Optional<User> byId = userRepository.findById(currentUser.getUser().getId());
-        byId.map(user -> {
-            Question question = questionMapper.map(questionDto);
-            question.setUser(user);
-            return questionRepository.save(question);
-        });
+        return byId.map(user -> {
+                    Question question = questionMapper.map(questionDto);
+                    question.setUser(user);
+                    return questionRepository.save(question);
+                })
+                .orElse(null);
 
     }
 

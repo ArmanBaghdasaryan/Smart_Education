@@ -47,7 +47,7 @@
 </head>
 <link rel="stylesheet" href="/css/question.css">
 
-<body>
+<body class="host_version">
 <!-- Start header -->
 <header class="top-navbar">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -86,9 +86,9 @@
 <div class="card">
     <div class="drop-shadow"></div>
     <div class="container">
-        <p class="cat-block" th:text="${question.user.name}"></p>
+        <p class="cat-block" th:text="${question.user != null? question.user.name:'--'}"></p>
         <h1 class="preview-title"><b th:text="${question.description}"></b></h1>
-        <p class="post-summary" th:each="answer:${question.answers}">
+        <p class="post-summary" id="answers" th:each="answer:${question.answers}">
             <strong th:text="${answer.user.name+ ': '}"></strong>
             <span th:text="${answer.answerText}"></span>
         </p>
@@ -114,9 +114,15 @@
             url: '/single_question',
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-                console.log(data);
-                $("#send").text(data)
-                $('#answers').append('<span>' + data.answerText + '</span>');
+                $('#answerText').val('')
+                $('#answers').append(
+                    '<div>' +
+                    '    <strong>' + data.ausername + '</strong>' +
+                    '    <span>' + data.answerText + '</span>' +
+                    '</p>' +
+                    '<input type="hidden" value="' + data.questionId + '" id="questionId">' +
+                    '</div>'
+                );
             },
             error: function (er) {
                 console.log(er);
@@ -130,3 +136,4 @@
 </body>
 
 </html>
+//
