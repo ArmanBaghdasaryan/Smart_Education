@@ -16,7 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootApplication
 @ComponentScan(basePackages = {"am.itspace.smart_education_rest.*", "am.itspace.smart_education_common.*"})
 @EntityScan(basePackages = {"am.itspace.smart_education_common.*"})
-@EnableJpaRepositories(basePackages = "am.itspace.smart_education_common.*")public class SmartEducationRestApplication {
+@EnableJpaRepositories(basePackages = "am.itspace.smart_education_common.*")
+public class SmartEducationRestApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SmartEducationRestApplication.class, args);
