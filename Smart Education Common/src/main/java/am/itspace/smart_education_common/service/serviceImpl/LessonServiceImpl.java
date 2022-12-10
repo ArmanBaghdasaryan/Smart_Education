@@ -68,7 +68,6 @@ public class LessonServiceImpl implements LessonService {
             userById.ifPresent(u -> {
                 u.getLessons().remove(l);
                 userRepository.save(u);
-
             });
         });
 

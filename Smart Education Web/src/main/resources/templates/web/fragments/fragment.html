@@ -92,7 +92,7 @@
                                         <button type="submit" class="btn btn-light btn-radius btn-brd grd1">
                                             Save &amp; Continue
                                         </button>
-                                        <a href="/static" class="btn btn-light btn-radius btn-brd grd1">
+                                        <a href="/" class="btn btn-light btn-radius btn-brd grd1">
                                             Cancel</a>
                                     </div>
                                 </div>
@@ -148,7 +148,7 @@
                             <h3>Information Link</h3>
                         </div>
                         <ul class="footer-links">
-                            <li><a href="/static">Home</a></li>
+                            <li><a href="/">Home</a></li>
                             <li><a href="/compiler">Compiler</a></li>
                             <li><a href="/about_us">About</a></li>
                             <li><a href="/course">Course</a></li>
@@ -224,7 +224,7 @@
         <div class="site-width">
             <nav class="navbar navbar-expand-lg  p-0">
                 <div class="navbar-header  h-100 h4 mb-0 align-self-center logo-bar text-left">
-                    <a href="/static" class="horizontal-logo text-left">
+                    <a href="/" class="horizontal-logo text-left">
                         <svg height="20pt" preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 512" width="20pt"
                              xmlns="http://www.w3.org/2000/svg">
                             <g transform="matrix(.1 0 0 -.1 0 512)" fill="#1e3d73">
@@ -237,7 +237,7 @@
                 </div>
 
                 <th:block th:if="${user != null}">
-                    <a href="/static#" class="nav-link py-0" data-toggle="dropdown" aria-expanded="false">
+                    <a href="/#" class="nav-link py-0" data-toggle="dropdown" aria-expanded="false">
                         <div class="media">
                             <img th:if="${user.picUrl != null}"
                                  th:src="@{/users/getImage(fileName=${user.picUrl})}" alt=""
@@ -268,7 +268,7 @@
         <div class="site-width">
             <!-- START: Menu-->
             <ul id="side-menu" class="sidebar-menu">
-                <li class="dropdown"><a href="/static#"><i class="icon-home mr-1"></i>My profile</a>
+                <li class="dropdown"><a href="/#"><i class="icon-home mr-1"></i>My profile</a>
 
                 </li>
 
