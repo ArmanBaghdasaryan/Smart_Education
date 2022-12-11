@@ -1,15 +1,12 @@
-package am.itspace.smart_education_common.service.serviceImpl;
+package am.itspace.smart_education_rest.service.serviceImpl;
 
 import am.itspace.smart_education_common.entity.Role;
 import am.itspace.smart_education_common.entity.User;
 import am.itspace.smart_education_common.repository.UserRepository;
 import am.itspace.smart_education_common.service.MailService;
-import am.itspace.smart_education_common.service.UserService;
+import am.itspace.smart_education_rest.service.UserServiceW2;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
@@ -17,26 +14,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
-
+public class UserServiceImplW2 implements UserServiceW2 {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final MailService mailService;
     @Value("${smart.education.images.folder}")
     private String folderPath;
-
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
 
     public void save(User user, MultipartFile file) throws IOException, MessagingException {
         if (!file.isEmpty() && file.getSize() > 0) {
@@ -55,19 +44,6 @@ public class UserServiceImpl implements UserService {
                         "<a href=\"http://localhost:8080/user/verify?email=" + user.getEmail() + "&token=" + user.getVerifyToken() + "\">Activate</a>"
         );
     }
-
-    public void deleteById(int id) {
-        userRepository.deleteById(id);
-    }
-
-    public User findById(int id) {
-        Optional<User> byId = userRepository.findById(id);
-        if (byId.isEmpty()) {
-            throw new RuntimeException("User with id" + id + " does not exists");
-        }
-        return byId.get();
-    }
-
     public void updateUser(User user, MultipartFile file) throws IOException {
         if (user.getPassword() == null) {
             Optional<User> byId = Optional.ofNullable(findById(user.getId()));
@@ -81,23 +57,12 @@ public class UserServiceImpl implements UserService {
         }
         userRepository.save(user);
     }
-
-    public byte[] getUserImage(String fileName) throws IOException {
-        InputStream inputStream = new FileInputStream(folderPath + File.separator + fileName);
-        return IOUtils.toByteArray(inputStream);
-    }
-
     public void checkedImage(User user, MultipartFile file) throws IOException {
         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
         File newFile = new File(folderPath + File.separator + fileName);
         file.transferTo(newFile);
         user.setPicture(fileName);
     }
-
-    public List<User> findByRole(Role role) {
-        return userRepository.findAllByRole(role);
-    }
-
     public boolean checkUserEmailAndUserImage(User user, MultipartFile file,
                                               ModelMap modelMap) {
         Optional<User> byEmail = userRepository.findByEmail(user.getEmail());
@@ -114,29 +79,11 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    public void verifyUser(String email, String token) throws Exception {
-        Optional<User> userOptional = userRepository.findByEmailAndVerifyToken(email, token);
-
-        if (userOptional.isEmpty()) {
-            throw new Exception("User Does not exists with email and token");
+    public User findById(int id) {
+        Optional<User> byId = userRepository.findById(id);
+        if (byId.isEmpty()) {
+            throw new RuntimeException("User with id" + id + " does not exists");
         }
-        User user = userOptional.get();
-        if (user.isEnable()) {
-            throw new Exception("User already enabled");
-        }
-        user.setEnable(true);
-        user.setVerifyToken(null);
-        userRepository.save(user);
+        return byId.get();
     }
-
-    public Page<User> findUsersWithPage(Pageable pageable) {
-        return userRepository.findAll(pageable);
-    }
-
-    @Override
-    public Optional<User> findByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-
 }

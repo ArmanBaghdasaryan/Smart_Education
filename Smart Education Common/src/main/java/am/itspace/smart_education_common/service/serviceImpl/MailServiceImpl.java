@@ -26,8 +26,7 @@ public class MailServiceImpl implements MailService {
     public void sendMail(EmailDetail emailDetail, List<User> admins) {
         String adminEmail = admins.get(0).getEmail();
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        String to = adminEmail;
-        mailMessage.setTo(to);
+        mailMessage.setTo(adminEmail);
         mailMessage.setSubject(emailDetail.getEmail());
         String message = String.format("You got message from email: %s name: %s surname: %s phone: %s \n MESSAGE: %s \n",
                 emailDetail.getEmail(), emailDetail.getFirstName(), emailDetail.getLastName(), emailDetail.getPhone(), emailDetail.getMessage()
