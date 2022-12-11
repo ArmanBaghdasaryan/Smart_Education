@@ -41,8 +41,10 @@ public class AnswerServiceImpl implements AnswerService {
                     log.info("User with id was found: {}", user.getId());
                     Answer answer = answerMapper.map(answerDto);
                     answer.setUser(user);
-                    log.info("Question with id was found: {}", questionById.get().getId());
-                    questionById.ifPresent(answer::setQuestion);
+                    questionById.ifPresent(question -> {
+                        log.info("Question with id was found: {}", question.getId());
+                        answer.setQuestion(question);
+                    });
                     return answerRepository.save(answer);
                 })
                 .orElse(null);
@@ -64,8 +66,8 @@ public class AnswerServiceImpl implements AnswerService {
         List<Answer> answers = answerRepository.findAnswersByQuestionId(id);
         modelMap.addAttribute("answers", answers);
         Optional<Question> byId = questionRepository.findById(id);
-        log.info("Question with id was found: {}", byId.get().getId());
         byId.ifPresent(question -> {
+            log.info("Question with id was found: {}", byId.get().getId());
             modelMap.addAttribute("question", question);
         });
     }
