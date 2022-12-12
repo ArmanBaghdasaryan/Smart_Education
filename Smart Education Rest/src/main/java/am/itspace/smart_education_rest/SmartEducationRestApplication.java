@@ -10,10 +10,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableAsync
 @RequiredArgsConstructor
 @SpringBootApplication
+@EnableSwagger2
 @ComponentScan(basePackages = {"am.itspace.smart_education_rest.*", "am.itspace.smart_education_common.*"})
 @EntityScan(basePackages = {"am.itspace.smart_education_common.*"})
 @EnableJpaRepositories(basePackages = "am.itspace.smart_education_common.*")
