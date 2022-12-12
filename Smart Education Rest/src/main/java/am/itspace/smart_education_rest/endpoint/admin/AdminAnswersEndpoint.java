@@ -25,6 +25,7 @@ public class AdminAnswersEndpoint {
         return ResponseEntity.ok(answerService.findAll());
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<Answer> getAnswerId(@PathVariable("id") int id) {
         return answerService.findById(id)
@@ -50,6 +51,7 @@ public class AdminAnswersEndpoint {
         if (byId.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
+        answer.setId(id);
         answerService.updateAnswer(answer);
         return ResponseEntity.ok(answer);
     }

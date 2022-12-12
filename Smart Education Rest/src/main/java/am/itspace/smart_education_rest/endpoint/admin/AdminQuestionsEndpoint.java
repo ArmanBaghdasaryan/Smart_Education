@@ -43,6 +43,7 @@ public class AdminQuestionsEndpoint {
         return ResponseEntity.noContent().build();
     }
 
+
     @PutMapping("/update/{id}")
     public ResponseEntity<Question> updateQuestionById(@PathVariable("id") int id,
                                                        @RequestBody Question question) {
@@ -50,6 +51,7 @@ public class AdminQuestionsEndpoint {
         if (byId.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
+        question.setId(id);
         questionsService.updateQuestion(question);
         return ResponseEntity.ok(question);
     }

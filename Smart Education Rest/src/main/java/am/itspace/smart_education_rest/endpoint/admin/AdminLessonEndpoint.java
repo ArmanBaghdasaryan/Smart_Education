@@ -15,32 +15,38 @@ import java.util.Optional;
 @RequestMapping("/lessons")
 public class AdminLessonEndpoint {
     private final LessonService lessonService;
+
     @GetMapping
-    public ResponseEntity<List<Lesson>> getAllLesson(){
+    public ResponseEntity<List<Lesson>> getAllLesson() {
         return ResponseEntity.ok(lessonService.findAll());
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Lesson> getLessonId(@PathVariable("id") int id){
+    public ResponseEntity<Lesson> getLessonId(@PathVariable("id") int id) {
         return lessonService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
     @PostMapping
-    public ResponseEntity<Lesson> createLesson(@RequestBody Lesson lesson){
+    public ResponseEntity<Lesson> createLesson(@RequestBody Lesson lesson) {
         lessonService.save(lesson);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteLessonById(@PathVariable("id") int id) {
         lessonService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
     @PutMapping("/update/{id}")
-    public ResponseEntity<Lesson> updateLesson(@PathVariable("id") int id,@RequestBody Lesson lesson){
+    public ResponseEntity<Lesson> updateLesson(@PathVariable("id") int id, @RequestBody Lesson lesson) {
         Optional<Lesson> byId = lessonService.findById(id);
-        if (byId.isEmpty()){
+        if (byId.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
+        lesson.setId(id);
         lessonService.updateLesson(lesson);
         return ResponseEntity.ok().build();
     }
