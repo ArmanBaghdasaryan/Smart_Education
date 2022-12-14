@@ -57,14 +57,15 @@ public class UserServiceImplW2 implements UserServiceW2 {
         }
         userRepository.save(user);
     }
+
     public void checkedImage(User user, MultipartFile file) throws IOException {
         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
         File newFile = new File(folderPath + File.separator + fileName);
         file.transferTo(newFile);
         user.setPicture(fileName);
     }
-    public boolean checkUserEmailAndUserImage(User user, MultipartFile file,
-                                              ModelMap modelMap) {
+
+    public boolean checkUserEmailAndUserImage(User user, MultipartFile file, ModelMap modelMap) {
         Optional<User> byEmail = userRepository.findByEmail(user.getEmail());
         if (byEmail.isPresent()) {
             modelMap.addAttribute("msgEmail", "Email already in use");

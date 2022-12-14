@@ -20,6 +20,7 @@ public interface UserService {
     void deleteById(int id);
 
     User findById(int id);
+    Optional<User> findByUserId(int id);
 
     void updateUser(User user, MultipartFile file) throws IOException;
 
@@ -36,5 +37,7 @@ public interface UserService {
     Page<User> findUsersWithPage(Pageable pageable);
 
     Optional<User> findByEmail(String email);
+    void saveUser (User user);
+
 }
 
