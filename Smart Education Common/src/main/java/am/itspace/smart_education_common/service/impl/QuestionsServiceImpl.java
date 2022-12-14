@@ -1,4 +1,4 @@
-package am.itspace.smart_education_common.service.serviceImpl;
+package am.itspace.smart_education_common.service.impl;
 
 import am.itspace.smart_education_common.dto.QuestionDto;
 import am.itspace.smart_education_common.entity.Question;
@@ -21,7 +21,6 @@ public class QuestionsServiceImpl implements QuestionsService {
 
     private final QuestionRepository questionRepository;
     private final UserRepository userRepository;
-
     private final QuestionMapper questionMapper;
 
     public void deleteById(int id) {

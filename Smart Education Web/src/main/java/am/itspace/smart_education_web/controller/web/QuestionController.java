@@ -39,7 +39,6 @@ public class QuestionController {
     @GetMapping("/question/search")
     public String searchQuestion(@RequestParam String keyword, ModelMap modelMap) {
         List<Question> searchQuestionsByKeyword = questionsService.searchQuestions(keyword);
-
         List<Question> questions = searchQuestionsByKeyword.stream()
                 .peek(question -> question.setDescription(question.getDescription()
                         .replaceAll(keyword, "<span style='color: yellow'>" + keyword + "</span>"))).collect(Collectors.toList());

@@ -24,7 +24,7 @@ public class MyProfileController {
     @GetMapping("/my_profile")
     public String mySubscribe(ModelMap modelMap, @AuthenticationPrincipal CurrentUser currentUser) {
         Set<Lesson> all = lessonService.findAllByUser(currentUser);
-        User byId = userService.findById(currentUser.getUser().getId());
+//        User byId = userService.findById(currentUser.getUser().getId());
         modelMap.addAttribute("mySub", all);
         return "web/myProfile";
     }

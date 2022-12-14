@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class CompilerController {
 
     @GetMapping("/compiler")
-    public String aboutPage(@RequestParam(required = false) String programLang, ModelMap map) {
+    public String compiler(@RequestParam(required = false) String programLang, ModelMap map) {
         map.addAttribute("programLang", programLang);
         return "web/compiler";
     }
