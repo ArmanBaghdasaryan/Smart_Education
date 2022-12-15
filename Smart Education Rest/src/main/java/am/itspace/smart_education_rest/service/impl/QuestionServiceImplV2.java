@@ -32,11 +32,11 @@ public class QuestionServiceImplV2 implements QuestionServiceV2 {
         UserDetails userDetails = detailService.loadUserByUsername(currentUser.getUsername());
         Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
         Optional<User> byId = userRepository.findById(currentUser.getUser().getId());
-        return authorities.stream().map(user -> {
-                    Question question = questionMapper.map(questionDto);
-                    question.setUser(byId.get());
-                    return questionRepository.save(question);
-                }).findAny().orElse(null);
+        return byId.flatMap(value -> authorities.stream().map(user -> {
+            Question question = questionMapper.map(questionDto);
+            question.setUser(value);
+            return questionRepository.save(question);
+        }).findAny()).orElse(null);
     }
 
 }

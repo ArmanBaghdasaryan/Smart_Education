@@ -31,21 +31,4 @@ public class AdminQuestionsController {
         return "redirect:/admin/questions";
     }
 
-    @GetMapping("/update/{id}")
-    public String updateQuestion(ModelMap modelMap,
-                                 @PathVariable("id") int id) {
-        Optional<Question> byId = questionsService.findById(id);
-        if (byId.isEmpty()) {
-            return "redirect:/admin/questions";
-        }
-        modelMap.addAttribute("questions", byId.get());
-        return "admin/editQuestion";
-    }
-
-
-    @PostMapping("/update")
-    public String updateQuestion(@ModelAttribute Question question) {
-        questionsService.updateQuestion(question);
-        return "redirect:/admin/questions";
-    }
 }

@@ -16,6 +16,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
+import javax.persistence.EntityNotFoundException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -35,10 +36,12 @@ public class UserServiceImpl implements UserService {
     private String folderPath;
 
     public List<User> findAll() {
+
         return userRepository.findAll();
     }
 
-    public void save(User user, MultipartFile file) throws IOException, MessagingException {
+    public void save(User user,
+                     MultipartFile file) throws IOException, MessagingException {
         if (!file.isEmpty() && file.getSize() > 0) {
             checkedImage(user, file);
         }
@@ -57,18 +60,22 @@ public class UserServiceImpl implements UserService {
     }
 
     public void deleteById(int id) {
-        userRepository.deleteById(id);
+        Optional<User> byId = userRepository.findById(id);
+        byId.ifPresent(user -> {
+            userRepository.deleteById(id);
+        });
     }
 
     public User findById(int id) {
         Optional<User> byId = userRepository.findById(id);
         if (byId.isEmpty()) {
-            throw new RuntimeException("User with id" + id + " does not exists");
+            throw new EntityNotFoundException("User with " + id + " id does not exists");
         }
         return byId.get();
     }
 
-    public void updateUser(User user, MultipartFile file) throws IOException {
+    public void updateUser(User user,
+                           MultipartFile file) throws IOException {
         if (user.getPassword() == null) {
             Optional<User> byId = Optional.ofNullable(findById(user.getId()));
             byId.ifPresent((userFromDb) -> user.setPassword(userFromDb.getPassword()));
@@ -87,7 +94,8 @@ public class UserServiceImpl implements UserService {
         return IOUtils.toByteArray(inputStream);
     }
 
-    public void checkedImage(User user, MultipartFile file) throws IOException {
+    public void checkedImage(User user,
+                             MultipartFile file) throws IOException {
         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
         File newFile = new File(folderPath + File.separator + fileName);
         file.transferTo(newFile);
@@ -114,7 +122,8 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    public void verifyUser(String email, String token) throws Exception {
+    public void verifyUser(String email,
+                           String token) throws Exception {
         Optional<User> userOptional = userRepository.findByEmailAndVerifyToken(email, token);
 
         if (userOptional.isEmpty()) {

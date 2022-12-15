@@ -14,7 +14,7 @@
 
 <!-- START: Body-->
 <body id="main-container" class="default">
-
+<link rel="stylesheet" href="/css/pagination.css">
 <!-- START: Pre Loader-->
 <div class="se-pre-con">
     <div class="loader"></div>
@@ -68,13 +68,16 @@
         </div>
     </div>
 
-    <div th:if="${users.totalPages > 0}" class="pagination"
+    <div class="page-header"></div>
+    <div class="b-pagination-outer" th:if="${users.totalPages > 0}"
          th:each="pageNumber : ${pageNumbers}">
-        <a th:href="@{/admin/user(size=${users.size}, page=${pageNumber})}"
-           th:text="${pageNumber}"
-           th:class="${pageNumber==users.number + 1} ? active"></a>
-
+        <ul id="border-pagination">
+            <li><a th:href="@{/admin/user(size=${users.size}, page=${pageNumber})}"
+                   th:text="${pageNumber}"
+                   th:class="${pageNumber==users.number + 1} ? active"></a></li>
+        </ul>
     </div>
+
 
     <!-- END: Breadcrumbs-->
 </main><!-- END: Content-->

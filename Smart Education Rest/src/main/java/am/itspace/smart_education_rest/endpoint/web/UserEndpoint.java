@@ -6,6 +6,7 @@ import am.itspace.smart_education_common.mapper.UserMapper;
 import am.itspace.smart_education_common.service.UserService;
 import am.itspace.smart_education_rest.dto.UserAuthDto;
 import am.itspace.smart_education_rest.dto.UserAuthResponseDto;
+import am.itspace.smart_education_rest.exception.EntityNotFoundException;
 import am.itspace.smart_education_rest.service.UserServiceV2;
 import am.itspace.smart_education_rest.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
@@ -58,9 +59,6 @@ public class UserEndpoint {
             @PathVariable(value = "id") int id
     ) throws MessagingException, IOException {
         User byId = userService.findById(id);
-        if (byId == null) {
-            return null;
-        }
         userServiceV2.checkUserEmailAndUserImage(byId, file);
         userServiceV2.checkedImage(byId, file);
         userServiceV2.save(byId);

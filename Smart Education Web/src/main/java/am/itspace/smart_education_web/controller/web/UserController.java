@@ -32,7 +32,7 @@ public class UserController {
                           @RequestParam("profPic") MultipartFile file,
                           ModelMap modelMap) throws IOException, MessagingException {
         if (userService.checkUserEmailAndUserImage(userMapper.map(userDto), file, modelMap)) {
-            return "web/fragments/fragment";
+            return "redirect:/user/register";
         }
         userService.save(userMapper.map(userDto), file);
         return "redirect:/";

@@ -61,7 +61,7 @@
                                  baseTableName="questions"
                                  constraintName="questions_fk_user_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="questions"/>
+                                 referencedTableName="user"/>
 
         <createTable tableName="answers">
             <column name="id" type="BIGINT" autoIncrement="true">

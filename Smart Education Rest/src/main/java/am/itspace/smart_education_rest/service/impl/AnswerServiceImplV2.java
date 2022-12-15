@@ -8,6 +8,7 @@ import am.itspace.smart_education_common.mapper.AnswerMapper;
 import am.itspace.smart_education_common.repository.AnswerRepository;
 import am.itspace.smart_education_common.repository.QuestionRepository;
 import am.itspace.smart_education_common.repository.UserRepository;
+import am.itspace.smart_education_rest.exception.AuthenticationException;
 import am.itspace.smart_education_rest.security.CurrentUser;
 import am.itspace.smart_education_rest.service.AnswerServiceV2;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +28,11 @@ public class AnswerServiceImplV2 implements AnswerServiceV2 {
     private final AnswerMapper answerMapper;
     private final AnswerRepository answerRepository;
 
-    public Answer save(AnswerRequestDto answerDto, @AuthenticationPrincipal CurrentUser currentUser) {
+    public Answer save(AnswerRequestDto answerDto, @AuthenticationPrincipal CurrentUser currentUser) throws AuthenticationException {
         Optional<User> userById = userRepository.findById(currentUser.getUser().getId());
+        if (userById.isEmpty()){
+            throw new AuthenticationException("User must be authorized");
+        }
         Optional<Question> questionById = questionRepository.findById(answerDto.getQuestionId());
         return userById.map(user -> {
                     log.info("User with id was found: {}", user.getId());

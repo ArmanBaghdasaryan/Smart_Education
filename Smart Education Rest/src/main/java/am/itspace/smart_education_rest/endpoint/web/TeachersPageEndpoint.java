@@ -3,6 +3,7 @@ package am.itspace.smart_education_rest.endpoint.web;
 
 import am.itspace.smart_education_common.entity.User;
 import am.itspace.smart_education_common.service.UserService;
+import am.itspace.smart_education_rest.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
@@ -21,11 +22,10 @@ public class TeachersPageEndpoint {
     private final UserService userService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> teacherSinglePage(@PathVariable("id") int id) {
-        Optional<User> byId = Optional.ofNullable(userService.findById(id));
-        if (byId.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(byId.get());
+    public ResponseEntity<User> teacherSinglePage(@PathVariable("id") int id) throws EntityNotFoundException {
+        User byId = Optional.ofNullable(userService.findById(id)).orElseThrow(
+                () -> new EntityNotFoundException("User with " + id + "id does not exits")
+        );
+        return ResponseEntity.ok(byId);
     }
 }

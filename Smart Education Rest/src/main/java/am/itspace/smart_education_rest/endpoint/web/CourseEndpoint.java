@@ -2,6 +2,7 @@ package am.itspace.smart_education_rest.endpoint.web;
 
 import am.itspace.smart_education_common.entity.Lesson;
 import am.itspace.smart_education_common.service.LessonService;
+import am.itspace.smart_education_rest.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -26,10 +27,10 @@ public class CourseEndpoint {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Lesson> courseSinglePage(@PathVariable("id") int id) {
+    public ResponseEntity<Lesson> courseSinglePage(@PathVariable("id") int id) throws EntityNotFoundException {
         Optional<Lesson> byId = lessonService.findById(id);
         if (byId.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            throw new EntityNotFoundException("Lesson with " + id + "does not exist");
         }
         return ResponseEntity.ok(byId.get());
     }

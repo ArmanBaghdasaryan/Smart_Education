@@ -16,4 +16,6 @@ public interface UserServiceV2 {
 
     User verifyUser(String email, String token) throws Exception;
 
+    User findById(int id);
+
 }
