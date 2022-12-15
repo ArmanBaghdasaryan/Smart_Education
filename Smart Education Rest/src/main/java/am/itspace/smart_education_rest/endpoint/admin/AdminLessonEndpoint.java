@@ -4,9 +4,12 @@ import am.itspace.smart_education_common.entity.Lesson;
 import am.itspace.smart_education_common.service.LessonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +35,20 @@ public class AdminLessonEndpoint {
     public ResponseEntity<Lesson> createLesson(@RequestBody Lesson lesson) {
         lessonService.save(lesson);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @RequestMapping(value = "/upload/{id}",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = {"multipart/form-data"})
+    public Lesson createLessonImage(@RequestParam("fileName") MultipartFile multipartFile,
+                                    @PathVariable("id") int id) throws IOException {
+        Optional<Lesson> byId = lessonService.findById(id);
+        if (byId.isEmpty()) {
+            return null;
+        }
+        lessonService.save(byId.get(), multipartFile);
+        return byId.get();
     }
 
     @DeleteMapping("/delete/{id}")

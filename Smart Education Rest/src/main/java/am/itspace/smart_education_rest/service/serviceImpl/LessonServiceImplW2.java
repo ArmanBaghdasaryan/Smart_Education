@@ -33,4 +33,8 @@ public class LessonServiceImplW2 implements LessonServiceW2 {
         lesson.setPicture(fileName);
 
     }
+    public Lesson save(Lesson lesson) {
+       return lessonRepository.save(lesson);
+
+    }
 }
