@@ -6,7 +6,6 @@ import am.itspace.smart_education_common.mapper.UserMapper;
 import am.itspace.smart_education_common.service.UserService;
 import am.itspace.smart_education_rest.dto.UserAuthDto;
 import am.itspace.smart_education_rest.dto.UserAuthResponseDto;
-import am.itspace.smart_education_rest.exception.EntityNotFoundException;
 import am.itspace.smart_education_rest.service.UserServiceV2;
 import am.itspace.smart_education_rest.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;

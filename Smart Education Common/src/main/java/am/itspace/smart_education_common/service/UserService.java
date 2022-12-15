@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
 import javax.mail.MessagingException;
+import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;

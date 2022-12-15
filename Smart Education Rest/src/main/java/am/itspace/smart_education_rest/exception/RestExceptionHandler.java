@@ -33,8 +33,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = {
-            AuthenticationException.class,
-            HttpClientErrorException.class})
+            AuthenticationException.class})
     public ResponseEntity<Object> handleAuthenticationException(Exception ex,
                                                                 WebRequest request) {
         ErrorDto errorDto = ErrorDto.builder()

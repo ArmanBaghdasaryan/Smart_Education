@@ -1,7 +1,7 @@
 package am.itspace.smart_education_rest.service.impl;
 
 import am.itspace.smart_education_common.entity.Lesson;
-
+import am.itspace.smart_education_common.repository.LessonRepository;
 import am.itspace.smart_education_rest.service.LessonServiceW2;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +17,7 @@ public class LessonServiceImplW2 implements LessonServiceW2 {
 
     @Value("${smart.education.images.folder}")
     private String folder;
+    private final LessonRepository lessonRepository;
 
 
     public void checkedImage(Lesson lesson, MultipartFile file) throws IOException {
@@ -25,8 +26,9 @@ public class LessonServiceImplW2 implements LessonServiceW2 {
         file.transferTo(newFile);
         lesson.setPicture(fileName);
     }
+
     public Lesson save(Lesson lesson) {
-       return lessonRepository.save(lesson);
+        return lessonRepository.save(lesson);
 
     }
 }
