@@ -25,4 +25,8 @@ public class LessonServiceImplW2 implements LessonServiceW2 {
         file.transferTo(newFile);
         lesson.setPicture(fileName);
     }
+    public Lesson save(Lesson lesson) {
+       return lessonRepository.save(lesson);
+
+    }
 }

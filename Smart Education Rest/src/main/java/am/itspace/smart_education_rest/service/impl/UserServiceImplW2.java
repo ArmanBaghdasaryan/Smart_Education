@@ -1,14 +1,15 @@
-package am.itspace.smart_education_rest.service.impl;
+package am.itspace.smart_education_rest.service.serviceImpl;
 
 import am.itspace.smart_education_common.entity.Role;
 import am.itspace.smart_education_common.entity.User;
 import am.itspace.smart_education_common.repository.UserRepository;
 import am.itspace.smart_education_common.service.MailService;
-import am.itspace.smart_education_rest.service.UserServiceV2;
+import am.itspace.smart_education_rest.service.UserServiceW2;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
@@ -23,7 +24,6 @@ public class UserServiceImplW2 implements UserServiceV2 {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final MailService mailService;
-
     @Value("${smart.education.images.folder}")
     private String folderPath;
 
@@ -41,7 +41,19 @@ public class UserServiceImplW2 implements UserServiceV2 {
                         "Please verify your account by clicking on this link " +
                         "<a href=\"http://localhost:8080/user/verify?email=" + user.getEmail() + "&token=" + user.getVerifyToken() + "\">Activate</a>"
         );
-        return user;
+    }
+    public void updateUser(User user, MultipartFile file) throws IOException {
+        if (user.getPassword() == null) {
+            Optional<User> byId = Optional.ofNullable(findById(user.getId()));
+            byId.ifPresent((userFromDb) -> user.setPassword(userFromDb.getPassword()));
+        }
+        if (!file.isEmpty() && file.getSize() > 0) {
+            checkedImage(user, file);
+        } else {
+            Optional<User> byId = Optional.ofNullable(findById(user.getId()));
+            byId.ifPresent((userFromDb) -> user.setPicture(userFromDb.getPicture()));
+        }
+        userRepository.save(user);
     }
 
     public void checkedImage(User user, MultipartFile file) throws IOException {
@@ -50,8 +62,8 @@ public class UserServiceImplW2 implements UserServiceV2 {
         file.transferTo(newFile);
         user.setPicture(fileName);
     }
-
-    public boolean checkUserEmailAndUserImage(User user, MultipartFile file) {
+    public boolean checkUserEmailAndUserImage(User user, MultipartFile file,
+                                              ModelMap modelMap) {
         Optional<User> byEmail = userRepository.findByEmail(user.getEmail());
         if (byEmail.isPresent()) {
             return true;

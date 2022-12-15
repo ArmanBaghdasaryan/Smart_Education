@@ -146,6 +146,11 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
-
+    public void saveUser(User user){
+        userRepository.save(user);
+    }
+    public Optional<User> findByUserId(int id) {
+        return userRepository.findById(id);
+    }
 
 }
