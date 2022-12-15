@@ -1,4 +1,4 @@
-package am.itspace.smart_education_common.service.serviceImpl;
+package am.itspace.smart_education_common.service.impl;
 
 import am.itspace.smart_education_common.entity.Lesson;
 import am.itspace.smart_education_common.entity.User;

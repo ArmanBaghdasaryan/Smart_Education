@@ -84,20 +84,21 @@
 </header>
 <!-- End header -->
 <div class="card">
-    <div class="drop-shadow"></div>
-    <div class="container">
-        <p class="cat-block" th:text="${question.user != null? question.user.name:'--'}"></p>
-        <h1 class="preview-title"><b th:text="${question.description}"></b></h1>
-        <p class="post-summary" id="answers" th:each="answer:${question.answers}">
-            <strong th:text="${answer.user.name+ ': '}"></strong>
-            <span th:text="${answer.answerText}"></span>
-        </p>
-        <input type="hidden" th:value="${question.id}" id="questionId">
+    <div class="drop-shadow">
+        <div class="container" id="answers" >
+            <p class="cat-block" th:text="${question.user != null? question.user.name:'--'}"></p>
+            <h1 class="preview-title"><b th:text="${question.description}"></b></h1>
+            <p class="post-summary" th:each="answer:${question.answers}">
+                <strong th:text="${answer.user.name+ ': '}"></strong>
+                <span th:text="${answer.answerText}"></span>
+
+            </p>
+            <input type="hidden" th:value="${question.id}" id="questionId">
+        </div>
         <input type="text" id="answerText">
         <button type="submit" class="btn btn-light btn-radius btn-brd grd1" id="send">send</button>
     </div>
 </div>
-
 <th:block th:insert="/web/fragments/fragment::FooterImport"></th:block>
 
 <script>
@@ -113,15 +114,14 @@
             }),
             url: '/single_question',
             contentType: "application/json; charset=utf-8",
-            success: function (data) {
+            success: function (answer) {
+                console.log(answer);
                 $('#answerText').val('')
                 $('#answers').append(
-                    '<div>' +
-                    '    <strong>' + data.ausername + '</strong>' +
-                    '    <span>' + data.answerText + '</span>' +
-                    '</p>' +
-                    '<input type="hidden" value="' + data.questionId + '" id="questionId">' +
-                    '</div>'
+                    `<p class="post-summary" >
+                <strong >${answer.ausername}:</strong>
+                <span>${answer.answerText}</span>
+                   </p> `
                 );
             },
             error: function (er) {

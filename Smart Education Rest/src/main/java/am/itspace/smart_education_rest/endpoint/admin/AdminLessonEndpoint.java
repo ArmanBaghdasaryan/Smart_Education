@@ -17,6 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/lessons")
 public class AdminLessonEndpoint {
+
     private final LessonService lessonService;
 
     @GetMapping

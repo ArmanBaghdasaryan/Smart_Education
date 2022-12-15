@@ -24,7 +24,7 @@ public class AdminQuestionsEndpoint {
         return ResponseEntity.ok(questionsService.findAll());
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public ResponseEntity<Question> getQuestionId(@PathVariable("id") int id) {
         return questionsService.findById(id)
                 .map(ResponseEntity::ok)

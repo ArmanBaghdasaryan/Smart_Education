@@ -1,5 +1,7 @@
 package am.itspace.smart_education_common.mapper;
 
+import am.itspace.smart_education_common.dto.RequestAdminLessonDto;
+import am.itspace.smart_education_common.dto.UserVerifyEmailDto;
 import am.itspace.smart_education_common.entity.User;
 import am.itspace.smart_education_common.dto.CreateUserDto;
 import am.itspace.smart_education_common.dto.RequestAdminUserDto;
@@ -15,4 +17,8 @@ public interface UserMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     User mapFromDto(RequestAdminUserDto userDto);
+
+    RequestAdminLessonDto map(User user);
+
+    UserVerifyEmailDto mapToUser(User user);
 }

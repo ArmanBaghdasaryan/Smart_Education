@@ -9,6 +9,7 @@
                     <h4 class="modal-title">Customer Login</h4>
                 </div>
                 <h4 class="modal-title" style="color: red" th:if="${param.error}">Invalid credentials</h4>
+                <h4 class="modal-title" style="color: red" th:if="${param.msgFile}">Invalid credentials</h4>
                 <div class="modal-body customer-box">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs">
@@ -58,8 +59,7 @@
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <input class="form-control" name="email" placeholder="email" type="email">
-                                        <span style="color: red" th:if="${msgEmail != null}"
-                                              th:text="${msgEmail}"></span>
+                                        <span style="color: red" th:if="${error != null}">Invalid credentials</span>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -77,8 +77,7 @@
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <input type="file" name="profPic" class="form-control" accept="image/*">
-                                        <span style="color: red" th:if="${msgFile != null}"
-                                              th:text="${msgFile}"></span>
+                                        <span style="color: red" th:if="${msgFile != null}">Invalid Credentials</span>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -167,7 +166,7 @@
                         </div>
 
                         <ul class="footer-links">
-                            <li ><a href="mailto:#">info@yoursite.com</a></li>
+                            <li><a href="mailto:#">info@yoursite.com</a></li>
                             <li><a href="#">www.yoursite.com</a></li>
                             <li>PO Box 16122 Collins Street West Victoria 8007 Australia</li>
                             <li>+61 3 8376 6284</li>

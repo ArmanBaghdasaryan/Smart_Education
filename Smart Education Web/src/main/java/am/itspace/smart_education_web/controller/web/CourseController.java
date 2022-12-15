@@ -21,7 +21,7 @@ public class CourseController {
 
 
     @GetMapping("/course")
-    public String bookSinglePage(ModelMap modelMap) {
+    public String courseSinglePage(ModelMap modelMap) {
         List<Lesson> allLesson = lessonService.findAll();
         modelMap.addAttribute("course", allLesson);
         return "web/course";

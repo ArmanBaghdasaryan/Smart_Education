@@ -30,19 +30,6 @@ public class AdminAnswersController {
         return "redirect:/admin/answers";
     }
 
-    @GetMapping("/update/{id}")
-    public String updateAnswer(ModelMap modelMap,
-                               @PathVariable("id") int id) {
-        Optional<Answer> byId = answerService.findById(id);
-        byId.ifPresent(answer -> modelMap.addAttribute("answers", answer));
-        return "admin/editAnswer";
-    }
-
-    @PostMapping("/update")
-    public String updateAnswer(@ModelAttribute Answer answer) {
-        answerService.updateAnswer(answer);
-        return "redirect:/admin/answers";
-    }
 }
 
 

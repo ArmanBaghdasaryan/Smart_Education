@@ -272,11 +272,13 @@
                                                 th:text="${courss.duration}"></strong></p>
                                     </div>
                                     <div class="pricing-table-sign-up">
-                                        <ul class="nav navbar-nav navbar-right" >
-                                            <li th:if="${currentUser == null}"><a class="hover-btn-new log orange" href="#" data-toggle="modal"
-                                                   data-target="#login"><span>Գրանցվել Դասին</span></a>
+                                        <ul class="nav navbar-nav navbar-right">
+                                            <li th:if="${currentUser == null}"><a class="hover-btn-new log orange"
+                                                                                  href="#" data-toggle="modal"
+                                                                                  data-target="#login"><span>Գրանցվել Դասին</span></a>
                                             </li>
-                                            <li th:if="${currentUser != null}"><a class="hover-btn-new log orange" href="/course"><span>Գրանցվել Դասին</span></a>
+                                            <li th:if="${currentUser != null}"><a class="hover-btn-new log orange"
+                                                                                  href="/course"><span>Գրանցվել Դասին</span></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -306,7 +308,7 @@
                 <div class="testi-carousel owl-carousel owl-theme">
                     <div class="testimonial clearfix" th:each="teach:${teachersHome}">
                         <div class="testi-meta">
-                            <img th:src="@{/getImage(fileName=${teach.picture})}"  alt="" class="img-fluid">
+                            <img th:src="@{/getImage(fileName=${teach.picture})}" alt="" class="img-fluid">
                             <h4 th:text="${teach.name + ' ' + teach.surname}"></h4>
                         </div>
                         <div class="desc">

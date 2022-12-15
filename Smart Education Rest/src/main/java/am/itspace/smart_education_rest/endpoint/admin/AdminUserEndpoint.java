@@ -1,8 +1,8 @@
 package am.itspace.smart_education_rest.endpoint.admin;
 
 import am.itspace.smart_education_common.entity.User;
-import am.itspace.smart_education_common.mapper.UserMapper;
 import am.itspace.smart_education_common.service.UserService;
+import am.itspace.smart_education_rest.service.UserServiceV2;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,10 +17,10 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/users")
+@RequestMapping("/admin/users")
 public class AdminUserEndpoint {
+    private final UserServiceV2 userServiceV2;
     private final UserService userService;
-    private final UserMapper userMapper;
 
     @GetMapping
     public ResponseEntity<List<User>> getAllUser() {
@@ -42,13 +42,14 @@ public class AdminUserEndpoint {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = {"multipart/form-data"})
-    public User createUserImage(@RequestParam("fileName") MultipartFile multipartFile,
-                                @PathVariable("id") int id) throws IOException, MessagingException {
+    public User register(
+            @RequestParam(value = "profPic") MultipartFile file,
+            @PathVariable(value = "id") int id
+    ) throws MessagingException, IOException {
         User byId = userService.findById(id);
-        if (byId == null) {
-            return null;
-        }
-        userService.save(byId, multipartFile);
+        userServiceV2.checkUserEmailAndUserImage(byId, file);
+        userServiceV2.checkedImage(byId, file);
+        userServiceV2.save(byId);
         return byId;
     }
 
@@ -61,7 +62,7 @@ public class AdminUserEndpoint {
     @PutMapping("/update/{id}")
     public ResponseEntity<User> updateUserId(@PathVariable("id") int id, @RequestBody User user) {
         Optional<User> byUserId = userService.findByUserId(id);
-        if (byUserId.isEmpty()){
+        if (byUserId.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
         user.setId(id);
