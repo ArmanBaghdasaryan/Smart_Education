@@ -4,6 +4,7 @@ import am.itspace.smart_education_common.entity.User;
 import am.itspace.smart_education_common.service.UserService;
 import am.itspace.smart_education_rest.service.UserServiceV2;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin/users")
+@Slf4j
 public class AdminUserEndpoint {
     private final UserServiceV2 userServiceV2;
     private final UserService userService;
@@ -35,6 +37,7 @@ public class AdminUserEndpoint {
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         userService.saveUser(user);
+        log.info("User successful created {} ", user);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -56,6 +59,7 @@ public class AdminUserEndpoint {
     @DeleteMapping("/{id}")
     public ResponseEntity<User> deleteUserById(@PathVariable("id") int id) {
         userService.deleteById(id);
+        log.info("User with " + id + "id was deleted");
         return ResponseEntity.noContent().build();
     }
 
@@ -63,10 +67,12 @@ public class AdminUserEndpoint {
     public ResponseEntity<User> updateUserId(@PathVariable("id") int id, @RequestBody User user) {
         Optional<User> byUserId = userService.findByUserId(id);
         if (byUserId.isEmpty()) {
+            log.error("User with " + id + "id wasn't found");
             return ResponseEntity.badRequest().build();
         }
         user.setId(id);
         userService.saveUser(user);
+        log.info("User with id successfully updated: {}", id);
         return ResponseEntity.ok().build();
     }
 }
