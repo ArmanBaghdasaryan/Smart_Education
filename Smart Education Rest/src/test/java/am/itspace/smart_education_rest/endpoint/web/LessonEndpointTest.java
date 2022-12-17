@@ -7,10 +7,12 @@ import am.itspace.smart_education_common.repository.LessonRepository;
 import am.itspace.smart_education_common.service.LessonService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -31,7 +33,7 @@ public class LessonEndpointTest {
     @Autowired
     private MockMvc mvc;
 
-    @Autowired
+    @MockBean
     private LessonRepository lessonRepository;
 
     @Autowired
@@ -43,14 +45,14 @@ public class LessonEndpointTest {
 
     @Test
     public void findAllLessons() throws Exception {
-
+        lessonRepository.save(lessonList());
         mvc.perform(get("/courses")
                         .content(asJsonString(lessonList()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$[0].id").value(1));
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+        Assertions.assertNotEquals(lessonList(), lessonRepository.findAll());
     }
 
     private static String asJsonString(final Object obj) {
@@ -61,23 +63,14 @@ public class LessonEndpointTest {
         }
     }
 
-    private List<Lesson> lessonList() {
+    private Lesson lessonList() {
 
-        return List.of(
-                Lesson.builder()
+        return Lesson.builder()
                         .title(Title.JS)
                         .isOnline(true)
                         .price(15.5)
                         .duration(Duration.MONTHS_3)
-                        .id(1).build(),
-
-                Lesson.builder()
-                        .title(Title.JAVA)
-                        .isOnline(true)
-                        .price(15.5)
-                        .duration(Duration.MONTHS_3)
-                        .id(2).build()
-        );
+                        .id(1).build();
 
     }
 }
