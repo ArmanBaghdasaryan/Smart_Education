@@ -21,6 +21,7 @@ public interface UserService {
     void deleteById(int id);
 
     Optional<User> findByUserId(int id);
+
     User findById(int id) throws EntityNotFoundException;
 
     void updateUser(User user, MultipartFile file) throws IOException;
@@ -38,7 +39,6 @@ public interface UserService {
     Page<User> findUsersWithPage(Pageable pageable);
 
     Optional<User> findByEmail(String email);
-
     void saveUser (User user);
 
 }

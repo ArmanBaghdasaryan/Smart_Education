@@ -9,6 +9,7 @@ import am.itspace.smart_education_common.repository.UserRepository;
 import am.itspace.smart_education_common.security.CurrentUser;
 import am.itspace.smart_education_common.service.QuestionsService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class QuestionsServiceImpl implements QuestionsService {
 
     private final QuestionRepository questionRepository;
