@@ -43,20 +43,6 @@ public class UserServiceImplV2 implements UserServiceV2 {
         return user;
     }
 
-    public void updateUser(User user, MultipartFile file) throws IOException {
-        if (user.getPassword() == null) {
-            Optional<User> byId = Optional.ofNullable(findById(user.getId()));
-            byId.ifPresent((userFromDb) -> user.setPassword(userFromDb.getPassword()));
-        }
-        if (!file.isEmpty() && file.getSize() > 0) {
-            checkedImage(user, file);
-        } else {
-            Optional<User> byId = Optional.ofNullable(findById(user.getId()));
-            byId.ifPresent((userFromDb) -> user.setPicture(userFromDb.getPicture()));
-        }
-        userRepository.save(user);
-    }
-
     public void checkedImage(User user, MultipartFile file) throws IOException {
         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
         File newFile = new File(folderPath + File.separator + fileName);

@@ -3,6 +3,7 @@ package am.itspace.smart_education_rest.endpoint.web;
 import am.itspace.smart_education_common.dto.AnswerRequestDto;
 import am.itspace.smart_education_common.entity.Answer;
 import am.itspace.smart_education_rest.exception.AuthenticationException;
+import am.itspace.smart_education_rest.exception.EntityNotFoundException;
 import am.itspace.smart_education_rest.security.CurrentUser;
 import am.itspace.smart_education_rest.service.impl.AnswerServiceImplV2;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ public class AnswerEndpoint {
 
     @PostMapping
     public ResponseEntity<AnswerRequestDto> answerSave(@RequestBody AnswerRequestDto answerDto,
-                                                       @AuthenticationPrincipal CurrentUser currentUser) throws AuthenticationException {
+                                                       @AuthenticationPrincipal CurrentUser currentUser) throws AuthenticationException, EntityNotFoundException {
         Answer answer = answerServiceV2.save(answerDto, currentUser);
         return ResponseEntity.ok(AnswerRequestDto.builder()
                 .answerText(answer.getAnswerText())
