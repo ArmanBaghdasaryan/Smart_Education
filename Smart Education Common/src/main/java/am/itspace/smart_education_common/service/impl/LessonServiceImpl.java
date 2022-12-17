@@ -94,7 +94,6 @@ public class LessonServiceImpl implements LessonService {
         lessonRepository.save(lesson);
     }
 
-    @Override
     public Set<Lesson> findAllByUser(CurrentUser currentUser) {
         Optional<User> byId = userRepository.findById(currentUser.getUser().getId());
         return byId.map(User::getLessons)
