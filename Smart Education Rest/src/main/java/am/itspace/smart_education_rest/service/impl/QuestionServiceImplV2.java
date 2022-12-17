@@ -28,6 +28,11 @@ public class QuestionServiceImplV2 implements QuestionServiceV2 {
     private final QuestionRepository questionRepository;
     private final CurrentUserDetailServiceImpl detailService;
 
+    /**
+     * due to this method, authenticated user can ask questions
+     * and other users can answer to it.
+     * questions and answers are saved separately in different tables of database
+     */
     public Question saveQuestion(QuestionDto questionDto, @AuthenticationPrincipal CurrentUser currentUser) {
         UserDetails userDetails = detailService.loadUserByUsername(currentUser.getUsername());
         Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();

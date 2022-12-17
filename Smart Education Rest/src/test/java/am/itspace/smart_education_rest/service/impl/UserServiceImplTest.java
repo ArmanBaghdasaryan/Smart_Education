@@ -9,6 +9,10 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.ui.ModelMap;
@@ -18,12 +22,12 @@ import javax.persistence.EntityNotFoundException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -112,18 +116,15 @@ class UserServiceImplTest {
         verify(userRepository).findByEmail(((user().getEmail())));
     }
 
-    //    @Test
-//    void pageable(){
-//        List<User> users = new ArrayList<>();
-//        Page<User> userPage = new PageImpl<>(users);
-//        Mockito.when(this.userRepository.findAll(userPage.getPageable())).thenReturn(userPage);
-//        Pageable pageRequest = PageRequest.of(0, 4);
-//        List<User> userList = userService.findUsersWithPage(pageRequest).map(user -> {
-//            user();
-//        });
-//        assertSame(userList.size(),4);
-//        verify(userRepository).findAll();
-//    }
+    @Test
+    void pageable() {
+        List<User> users = new ArrayList<>();
+        Page<User> userPage = new PageImpl<>(users);
+        Mockito.when(this.userRepository.findAll(userPage.getPageable())).thenReturn(userPage);
+        Pageable pageRequest = PageRequest.of(0, 4);
+        assertEquals(4, pageRequest.getPageSize());
+    }
+
     @Test
     void testDeleteById() {
 

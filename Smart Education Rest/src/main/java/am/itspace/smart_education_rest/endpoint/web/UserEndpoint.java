@@ -38,9 +38,7 @@ public class UserEndpoint {
 
     @RequestMapping(value = "/register",
             method = RequestMethod.POST)
-    public ResponseEntity<User> register(
-            @RequestBody CreateUserDto userDto
-    ) throws MessagingException, IOException {
+    public ResponseEntity<User> register(@RequestBody CreateUserDto userDto) throws MessagingException, IOException {
         Optional<User> existingUser = userService.findByEmail(userDto.getEmail());
         if (existingUser.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
@@ -49,14 +47,12 @@ public class UserEndpoint {
     }
 
 
-    @RequestMapping(value = "/upload/{id}",
-            method = RequestMethod.POST,
+    @PostMapping(value = "/upload/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = {"multipart/form-data"})
     public User register(
             @RequestParam(value = "profPic") MultipartFile file,
-            @PathVariable(value = "id") int id
-    ) throws MessagingException, IOException {
+            @PathVariable(value = "id") int id) throws MessagingException, IOException {
         User byId = userService.findById(id);
         userServiceV2.checkUserEmailAndUserImage(byId, file);
         userServiceV2.checkedImage(byId, file);
@@ -66,8 +62,7 @@ public class UserEndpoint {
 
 
     @PostMapping("/auth")
-    public ResponseEntity<UserAuthResponseDto> auth(
-            @RequestBody UserAuthDto userAuthDto) {
+    public ResponseEntity<UserAuthResponseDto> auth(@RequestBody UserAuthDto userAuthDto) {
         Optional<User> byEmail = userService.findByEmail(userAuthDto.getEmail());
         if (byEmail.isPresent()) {
             User user = byEmail.get();
@@ -86,8 +81,7 @@ public class UserEndpoint {
     @GetMapping("/verify")
     public boolean verifyUser(
             @RequestParam("email") String email,
-            @RequestParam("token") String token
-    ) throws Exception {
+            @RequestParam("token") String token) throws Exception {
         User user = userServiceV2.verifyUser(email, token);
         return user.isEnable();
     }
